@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- nav-bar -->
+	<nav class="navbar navbar-inverse " th:fragment="header">
+	  <div class="container">
+	    <div class="navbar-header">
+	      <a class="navbar-brand" th:href="@{'/'}">Quản lý công tác</a>
+	    </div>
+	    <ul class="nav navbar-nav">
+	    </ul>
+	    
+	    <ul sec:authorize="isAnonymous()" class="nav navbar-nav navbar-right">
+	      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Đăng ký</a></li>
+	      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Đăng nhập</a></li>
+	    </ul>
+	    <ul sec:authorize="isAuthenticated()" class="nav navbar-nav navbar-right">
+	      <li>
+	    	 <a href="#">
+	    	 	<span class="glyphicon glyphicon-user" ></span> 
+	    	 	<span sec:authentication="name"></span>
+	    	 </a>
+	      </li>
+	    </ul>
+	  </div>
+	</nav>
+	<!-- end nav-bar -->
+</body>
+</html>

@@ -1,0 +1,65 @@
+<html xmlns:th="http://thymeleaf.org">
+<head>
+	<meta charset="UTF-8"/>
+	<title>Các đề xuất chi phí trong quá trình công tác</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+</head>
+<body>
+	<div th:replace="layout :: header"></div>
+	
+	<div class="container">
+		<div class="well" style="min-height: 100%">
+			<header class="page-header">
+				<h2>Các đề xuất chi phí trong quá trình công tác</h2>
+			</header>
+			
+			<main th:if="${notConfirmedPlans.size > 0}">	
+			
+	<!-- 		Insert Modal -->
+	
+				<div class="row" style="margin:3%">
+					<div class="col-md-3 pull-right">
+						<a th:href="@{proposes/add}" class="btn btn-lg btn-info">
+							<span class="glyphicon glyphicon-plus"></span>
+							Tạo đề xuất
+						</a>
+					</div>
+				</div>
+				
+	<!-- 			End Insert Modal -->
+	
+	<!-- Proposes Table -->
+	
+				<table class=" table table-stripped table-hover table-responsive table-bordered">
+					<thead>
+						<th>STT</th>
+						<th>Chuyến công tác</th>
+						<th>Ngày bắt đầu</th>
+						<th>Ngày kết thúc</th>
+						<th>Trạng thái</th>		
+					</thead>
+					<tbody>	
+						<tr th:each="plan, no : ${notConfirmedPlans.content}">	
+							<td th:text="${no.count}"></td>
+							<td><a th:href="@{/proposes/} + ${plan.id}" th:text="${plan.name}"></a></td>
+							<td th:text="${plan.startDate}"></td>
+							<td th:text="${plan.finishDate}"></td>
+							<td th:text="${plan.confirmed}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</main>
+			
+			
+			<main th:if="${notConfirmedPlans.size == 0}" class="text-center">	
+				<p><h3>Không có đề xuất nào</h3></p>
+			</main>
+			<!-- 		End Proposes Table -->
+		</div>
+	</div>
+	
+	
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

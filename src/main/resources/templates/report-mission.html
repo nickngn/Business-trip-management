@@ -1,0 +1,67 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Báo cáo công tác</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body style="margin-bottom: 50px">
+	<div  class="container well">	
+		<header class="page-header">
+			<p><h2>Báo cáo công tác</h2></p>
+			<label for="" class="col-md-1">Báo cáo:</label>
+			<div class="col-md-2">
+				<select class="form-control" name="" id="">
+					<option value="">quá trình</option>
+					<option value="">kết thúc</option>
+				</select>	
+			</div>
+			
+			<span>công tác</span>
+		</header>
+
+		<main>
+			
+			<div class="col-md-12 " style="margin-top: 40px">
+				
+				<table class=" table table-stripped table-hover table-responsive table-bordered">
+					<thead>
+						<th></th>
+						<th>STT</th>
+						<th>Công việc</th>
+						<th>Thời gian</th>
+						<th>Địa điểm</th>
+						<th>Kết quả</th>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input type="checkbox" name="chk" ></td>
+							<td>1</td>
+							<td><input type="text" class="form-control" placeholder="Công việc"></td>
+							<td><input type="date" class="form-control"></td>
+							<td><input type="text" class="form-control" placeholder="Địa điểm"></td>
+							<td><textarea class="form-control" style="resize: none; overflow: auto;" name="" id="" cols="50" rows="3"></textarea></td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<div style="margin-top: 20px">
+					<button class="btn btn-info">Thêm</button>
+					<button class="btn btn-warning">Xóa</button>
+				</div>
+			</div>
+
+			<div class="col-md-3 pull-right" style="margin-top: 40px">
+				<!-- <div class="col-md-5"> -->
+					<button class="btn btn-success btn-lg">Gửi báo cáo</button>
+					<!-- </div> -->
+					<!-- <button class="btn btn-danger btn-lg">Từ chối</button> -->
+				</div>
+			
+		</main>
+	</div>
+	
+	
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

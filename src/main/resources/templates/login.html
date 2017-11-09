@@ -1,0 +1,46 @@
+<html xmlns:th="http:/thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Đăng nhập</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+<body>
+	<div th:replace="layout :: header"></div>
+	
+	<div class="col-md-4 col-md-offset-4" style="margin-top: 5%">
+		<form th:action="@{/login}" method="post">
+			<p th:if="${param.error}">Username or password is invalid!</p>
+			<table class="table table-bordered" style="text-align:center">
+				<tr>
+					<td colspan="2" style="font-size: 20px;">
+						<strong>Đăng nhập</strong>
+					</td>
+				</tr>
+				<tr>
+					<td>Tên đăng nhập</td>
+					<td>
+					<input type="text" class="form-control" placeholder="username" name="username" /></td>
+				</tr>
+				<tr>
+					<td>Mật khẩu</td>
+					<td><input type="password" class="form-control"
+						placeholder="password" name="password"/></td>
+				</tr>
+				<tr>
+					<td colspan="2" style="text-align: center;">
+						<div class="col-md-6">
+							<button type="submit" class="btn btn-info btn-block">Đăng nhập</button>
+						</div>
+						<div class="col-md-6" style="padding-top: 7px; font-size: 15px;">
+							<a href="#">Đăng ký >></a>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</form>
+
+	</div>
+
+</body>
+</html>
