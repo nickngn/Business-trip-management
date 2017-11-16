@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.hung.project1.entity.Role;
 import com.hung.project1.entity.User;
-import com.hung.project1.repository.PlanRepository;
+import com.hung.project1.repository.GeneralPlanRepository;
 import com.hung.project1.repository.RoleRepository;
 import com.hung.project1.repository.UserRepository;
 
@@ -27,7 +27,7 @@ public class ApplicationSeeding implements ApplicationListener<ContextRefreshedE
 	private RoleRepository roleRepo;
 	
 	@Autowired
-	private PlanRepository planRepo;
+	private GeneralPlanRepository planRepo;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;

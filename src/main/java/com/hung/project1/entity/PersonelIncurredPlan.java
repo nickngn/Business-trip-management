@@ -32,7 +32,7 @@ public class PersonelIncurredPlan implements Serializable{
 		"financeIncurredPlanList"})
 	@ManyToOne
 	@JoinColumn(name="plan_id")
-	private Plan plan;
+	private GeneralPlan generalPlan;
 	
 	@JsonIgnoreProperties("plans")
 	@ManyToOne
@@ -58,12 +58,12 @@ public class PersonelIncurredPlan implements Serializable{
 		this.id = id;
 	}
 
-	public Plan getPlan() {
-		return plan;
+	public GeneralPlan getPlan() {
+		return generalPlan;
 	}
 
-	public void setPlan(Plan plan) {
-		this.plan = plan;
+	public void setPlan(GeneralPlan generalPlan) {
+		this.generalPlan = generalPlan;
 	}
 
 	public User getUser() {
@@ -108,7 +108,7 @@ public class PersonelIncurredPlan implements Serializable{
 
 	@Override
 	public String toString() {
-		return "PersonelIncurredPlan [id=" + id + ", plan=" + plan + ", user=" + user + ", action=" + action + ", date="
+		return "PersonelIncurredPlan [id=" + id + ", plan=" + generalPlan + ", user=" + user + ", action=" + action + ", date="
 				+ date + ", description=" + description + ", isConfirmed=" + isConfirmed + "]";
 	}
 

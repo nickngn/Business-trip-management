@@ -8,5 +8,9 @@ import com.hung.project1.entity.PersonelPlan;
 
 public interface PersonelPlanRepository extends CrudRepository<PersonelPlan, Integer>{
 
-	List<PersonelPlan> findByPlanId(Integer planId);
+	List<PersonelPlan> findByGeneralPlanId(Integer planId);
+	
+	List<PersonelPlan> findByUserId(Integer userId);
+	
+//	List<PersonelPlan> findByPlanId(Integer planId);
 }

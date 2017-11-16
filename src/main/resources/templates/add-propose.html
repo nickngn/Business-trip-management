@@ -1,0 +1,114 @@
+<html>
+<head>
+	<meta charset="UTF-8"/>
+	<title>Nhân viên đề xuất</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+</head>
+<body  style="margin-bottom: 50px">
+	
+	<div th:replace="layout :: header"></div>
+	
+	<div class="container" style="background-color: #f9f9f9; box-shadow:0px 0px 10px #dadada">
+		<header class="page-header">
+			<p><h2>Thêm đề xuất công tác</h2></p>
+		</header>
+
+		<main>
+			<form th:action="@{/proposes/add}" method="post" th:object="${generalPlan}">
+				<div class="col-md-12" style="margin-top: 40px" >
+					<div class="col-md-6" >
+						
+						<legend><strong>Chi tiết chuyển công tác</strong></legend>
+						<div class="form-group col-md-12">
+							<label for="" class="col-md-4">Tên chuyển công tác:</label>
+							<div class="col-md-8">
+								<input type="text" th:field="*{name}" class="form-control" placeholder="Ký hợp đồng với công ty ABC,..."/>
+							</div>
+						</div>
+	
+						<div class="form-group col-md-12">
+							<label for="" class="col-md-4">Địa điểm:</label>
+							<div class="col-md-8">
+								<input type="text" th:field="*{location}" name="location" class="form-control" />
+							</div>
+						</div>
+	
+						<div class="form-group col-md-12">
+							<label for="" class="col-md-4">Thời gian bắt đầu:</label>
+							<div class="col-md-6">
+								<input type="date" th:field="*{startDate}" class="form-control" />
+							</div>
+						</div>
+	
+						<div class="form-group col-md-12">
+							<label for="" class="col-md-4">Thời gian kết thúc:</label>
+							<div class="col-md-6">
+								<input type="date" th:field="*{finishDate}" class="form-control" />
+							</div>
+						</div>
+	
+					</div>
+				</div>
+				
+				
+				<div class="col-md-10" style="margin-top: 40px" >
+					<legend><strong>Các nhân viên đi cùng:</strong></legend>
+					<table class=" table table-stripped table-hover table-responsive table-bordered">
+						<thead>
+							<th></th>
+							<th>STT</th>
+							<th>Tên</th>
+						</thead>
+						
+						<tbody>
+							<tr th:each="personelPlan, stat: *{personelPlanList}">
+								<td><input type="checkbox" name="chk" /></td>
+								<td th:text="${stat.count}"></td>
+								<td><input type="text" th:field="*{personelPlanList[__${stat.index}__].user.username}" class="form-control" placeholder="Tên"/></td>
+							</tr>
+						</tbody>
+					</table>
+					<div style="margin-top: 20px">
+						<button class="btn btn-info">Thêm</button>
+						<button class="btn btn-warning">Xóa</button>
+					</div>
+				</div>
+
+				<div class="col-md-10 " style="margin-top: 40px">
+					<legend><strong>Các khoản tạm ứng:</strong></legend>
+					
+					<table class=" table table-stripped table-hover table-responsive table-bordered">
+						<thead>
+							<th></th>
+							<th>STT</th>
+							<th>Chi mục</th>
+							<th>Chi phí</th>
+						</thead>
+						<tbody>
+							<tr th:each="financePlan, iterStat: *{financePlanList}">
+								<td><input type="checkbox" name="chk" /></td>
+								<td th:text="${iterStat.count}"></td>
+								<td><input type="text" th:field="*{financePlanList[__${iterStat.index}__].fee}" class="form-control" placeholder="Chi mục"/></td>
+								<td><input type="number" th:field="*{financePlanList[__${iterStat.index}__].cost}" class="form-control" placeholder="Chi phí"/></td>
+							</tr>
+						</tbody>
+					</table>
+					<div style="margin-top: 20px">
+						<button class="btn btn-info">Thêm</button>
+						<button class="btn btn-warning">Xóa</button>
+					</div>
+				</div>
+				
+				<div class="col-md-3 pull-right">
+					<button type="submit" class="btn btn-success btn-lg">Gửi đề xuất</button>
+				</div>
+			</form>
+		</main>
+	</div>
+	
+	
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script></script>
+</body>
+</html>

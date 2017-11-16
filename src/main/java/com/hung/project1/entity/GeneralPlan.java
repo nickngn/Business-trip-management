@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -23,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 	"financePlanList",
 	"financeIncurredPlanList"
 })
-public class Plan implements Serializable{
+public class GeneralPlan implements Serializable{
 	
 	/**
 	 * 
@@ -40,9 +42,11 @@ public class Plan implements Serializable{
     private String location;
     
     @Column(name="start_date")
+    @DateTimeFormat(pattern="yy-MM-dd")
     private Date startDate;
     
     @Column(name="finish_date")
+    @DateTimeFormat(pattern="yy-MM-dd")
     private Date finishDate;
     
     @JsonIgnoreProperties({"plans", "password"})
@@ -50,31 +54,22 @@ public class Plan implements Serializable{
     @JoinColumn(name="leader_id")
     private User leader;
     
-    @Column(name="is_confirmed")
-    private Boolean isConfirmed;
+    private String status;
     
-    @OneToMany(mappedBy="plan")
+    @OneToMany(mappedBy="generalPlan")
     private List<PersonelPlan> personelPlanList;
     
-    @OneToMany(mappedBy="plan")
+    @OneToMany(mappedBy="generalPlan")
     private List<PersonelIncurredPlan> personelIncurredPlanList;
     
-    @OneToMany(mappedBy="plan")
+    @OneToMany(mappedBy="generalPlan")
     private List<FinancePlan> financePlanList;
     
-    @OneToMany(mappedBy="plan")
+    @OneToMany(mappedBy="generalPlan")
     private List<FinanceIncurredPlan> financeIncurredPlanList;
     
-	public Plan() {
+	public GeneralPlan() {
 		super();
-	}
-
-	public Plan(String name, String location, Date startDate, Date finishDate) {
-		super();
-		this.name = name;
-		this.location = location;
-		this.startDate = startDate;
-		this.finishDate = finishDate;
 	}
 
 	public Integer getId() {
@@ -121,6 +116,7 @@ public class Plan implements Serializable{
 		return personelPlanList;
 	}
 
+
 	public void setPersonelPlanList(List<PersonelPlan> personelPlanList) {
 		this.personelPlanList = personelPlanList;
 	}
@@ -133,14 +129,13 @@ public class Plan implements Serializable{
 		this.financePlanList = financePlanList;
 	}
 
-	public boolean isConfirmed() {
-		return isConfirmed;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setConfirmed(Boolean isConfirmed) {
-		this.isConfirmed = isConfirmed;
+	public void setStatus(String status) {
+		this.status = status;
 	}
-	
 
 	public User getLeader() {
 		return leader;
@@ -172,8 +167,31 @@ public class Plan implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Plan [id=" + id + ", name=" + name + ", location=" + location + ", startDate=" + startDate
-				+ ", finishDate=" + finishDate + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("GeneralPlan [id=");
+		builder.append(id);
+		builder.append(", name=");
+		builder.append(name);
+		builder.append(", location=");
+		builder.append(location);
+		builder.append(", startDate=");
+		builder.append(startDate);
+		builder.append(", finishDate=");
+		builder.append(finishDate);
+		builder.append(", leader=");
+		builder.append(leader);
+		builder.append(", status=");
+		builder.append(status);
+		builder.append(", personelPlanList=");
+		builder.append(personelPlanList);
+		builder.append(", personelIncurredPlanList=");
+		builder.append(personelIncurredPlanList);
+		builder.append(", financePlanList=");
+		builder.append(financePlanList);
+		builder.append(", financeIncurredPlanList=");
+		builder.append(financeIncurredPlanList);
+		builder.append("]");
+		return builder.toString();
 	}
     
     

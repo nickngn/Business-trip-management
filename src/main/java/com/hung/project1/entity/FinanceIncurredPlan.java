@@ -31,7 +31,7 @@ public class FinanceIncurredPlan implements Serializable{
 	@JsonIgnoreProperties("financeIncurredPlanList")
 	@ManyToOne
 	@JoinColumn(name="plan_id")
-	private Plan plan;
+	private GeneralPlan generalPlan;
 	
 	@Column(name="is_confirmed")
 	private boolean isConfirmed;
@@ -58,11 +58,11 @@ public class FinanceIncurredPlan implements Serializable{
 	public void setCost(Double cost) {
 		this.cost = cost;
 	}
-	public Plan getPlan() {
-		return plan;
+	public GeneralPlan getPlan() {
+		return generalPlan;
 	}
-	public void setPlan(Plan plan) {
-		this.plan = plan;
+	public void setPlan(GeneralPlan generalPlan) {
+		this.generalPlan = generalPlan;
 	}
 
 	public String getDescription() {
@@ -84,7 +84,7 @@ public class FinanceIncurredPlan implements Serializable{
 	@Override
 	public String toString() {
 		return "FinanceIncurredPlan [id=" + id + ", fee=" + fee + ", cost=" + cost + ", description=" + description
-				+ ", plan=" + plan + ", isConfirmed=" + isConfirmed + "]";
+				+ ", plan=" + generalPlan + ", isConfirmed=" + isConfirmed + "]";
 	}
 	
 	

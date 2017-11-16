@@ -1,23 +1,23 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
 	<meta charset="UTF-8"/>
-	<title>Các đề xuất chi phí trong quá trình công tác</title>
+	<title>Các đề xuất công tác</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 </head>
 <body>
 	<div th:replace="layout :: header"></div>
 	
-	<div class="container">
-		<div class="well" style="min-height: 100%">
+	<div class="container" style="background-color: #f9f9f9; box-shadow:0px 0px 10px #dadada; margin-bottom:1%">
+		<div style="min-height: 100%">
 			<header class="page-header">
-				<h2>Các đề xuất chi phí trong quá trình công tác</h2>
+				<h2>Các đề xuất công tác</h2>
 			</header>
 			
 			<main th:if="${notConfirmedPlans.size > 0}">	
 			
 	<!-- 		Insert Modal -->
 	
-				<div class="row" style="margin:3%">
+				<div class="row" style="margin:1%">
 					<div class="col-md-3 pull-right">
 						<a th:href="@{proposes/add}" class="btn btn-lg btn-info">
 							<span class="glyphicon glyphicon-plus"></span>
@@ -40,14 +40,20 @@
 					</thead>
 					<tbody>	
 						<tr th:each="plan, no : ${notConfirmedPlans.content}">	
-							<td th:text="${no.count}"></td>
+							<td th:text="${no.count + (page -1) * size}"></td>
 							<td><a th:href="@{/proposes/} + ${plan.id}" th:text="${plan.name}"></a></td>
 							<td th:text="${plan.startDate}"></td>
 							<td th:text="${plan.finishDate}"></td>
-							<td th:text="${plan.confirmed}"></td>
+							<td th:text="${plan.status}"></td>
 						</tr>
 					</tbody>
 				</table>
+				
+				<div class="col-md-5 pull-right">
+					<a th:if="${page gt 1}" th:href="@{'/proposes?page='} + ${page - 1}" th:utext="${(page - 1)}"></a>
+					<span>________</span>
+					<a th:if="${page lt notConfirmedPlans.totalPages}" th:href="@{'/proposes?page='} + ${page + 1}" th:text="${page + 1}"></a>
+				</div>
 			</main>
 			
 			

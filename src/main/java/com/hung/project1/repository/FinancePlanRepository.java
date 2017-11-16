@@ -8,5 +8,5 @@ import com.hung.project1.entity.FinancePlan;
 
 public interface FinancePlanRepository extends CrudRepository<FinancePlan, Integer>{
 
-	List<FinancePlan> findByPlanId(int planId);
+	List<FinancePlan> findByGeneralPlanId(int planId);
 }

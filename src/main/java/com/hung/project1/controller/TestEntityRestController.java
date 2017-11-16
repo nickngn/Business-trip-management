@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hung.project1.entity.GeneralPlan;
 import com.hung.project1.entity.PersonelPlan;
-import com.hung.project1.entity.Plan;
 import com.hung.project1.entity.User;
 import com.hung.project1.repository.FinancePlanRepository;
+import com.hung.project1.repository.GeneralPlanRepository;
 import com.hung.project1.repository.PersonelPlanRepository;
-import com.hung.project1.repository.PlanRepository;
 import com.hung.project1.repository.UserRepository;
 
 @RestController
@@ -34,7 +34,7 @@ public class TestEntityRestController {
 	UserRepository userRepo; 
 	
 	@Autowired
-	PlanRepository planRepo; 
+	GeneralPlanRepository planRepo; 
 	
 	
 	@Autowired
@@ -72,22 +72,22 @@ public class TestEntityRestController {
 		}
 		
 		Pageable pageRequest = new PageRequest(_page, _size);
-		Page<Plan> notConfirmedPlans = planRepo.findNotConfirmedPlan(pageRequest);
+		Page<GeneralPlan> notConfirmedPlans = planRepo.findUnconfirmedPlan(pageRequest);
 		map.addAttribute("notConfirmedPlans", notConfirmedPlans.getContent());
 		//
 		return notConfirmedPlans;
 	}
 	
 	@GetMapping("/plan/{id}")
-	public Plan viewPlanProposeDetail(@PathVariable int id) {
-		Plan plan = planRepo.findOne(id);
+	public GeneralPlan viewPlanProposeDetail(@PathVariable int id) {
+		GeneralPlan generalPlan = planRepo.findById(id);
 		//
-		return plan;
+		return generalPlan;
 	}
 	
 	@GetMapping("/personelplan/{id}")
 	public Object viewPersonelPlanProposeDetail(@PathVariable int id, ModelMap map) {
-		List<PersonelPlan> personelPlan = personelPlanRepo.findByPlanId(id);
+		List<PersonelPlan> personelPlan = personelPlanRepo.findByGeneralPlanId(id);
 		//
 		return personelPlan;
 	}

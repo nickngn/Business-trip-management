@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -39,8 +40,8 @@ public class User implements Serializable{
 	private String phone;
 	
 	@JsonIgnoreProperties(value={"leader", "personelPlanList", "personelIncurredPlanList"})
-	@OneToMany(mappedBy="leader")
-	private List<Plan> plans;
+	@OneToMany(mappedBy="leader", fetch = FetchType.LAZY)
+	private List<GeneralPlan> generalPlans;
 	
 	@ManyToOne()
 	@JoinColumn(name="role_id")
@@ -93,11 +94,11 @@ public class User implements Serializable{
 	}
 	
 	
-	public List<Plan> getPlans() {
-		return plans;
+	public List<GeneralPlan> getPlans() {
+		return generalPlans;
 	}
-	public void setPlans(List<Plan> plans) {
-		this.plans = plans;
+	public void setPlans(List<GeneralPlan> generalPlans) {
+		this.generalPlans = generalPlans;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;

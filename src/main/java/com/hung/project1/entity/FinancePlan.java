@@ -30,7 +30,7 @@ public class FinancePlan implements Serializable{
 	@JsonIgnoreProperties("financePlanList")
 	@ManyToOne
 	@JoinColumn(name="plan_id")
-	private Plan plan;
+	private GeneralPlan generalPlan;
 	
 	public FinancePlan() {
 		super();
@@ -54,16 +54,16 @@ public class FinancePlan implements Serializable{
 	public void setCost(Double cost) {
 		this.cost = cost;
 	}
-	public Plan getPlan() {
-		return plan;
+	public GeneralPlan getPlan() {
+		return generalPlan;
 	}
-	public void setPlan(Plan plan) {
-		this.plan = plan;
+	public void setPlan(GeneralPlan generalPlan) {
+		this.generalPlan = generalPlan;
 	}
 
 	@Override
 	public String toString() {
-		return "FinancePlan [id=" + id + ", fee=" + fee + ", cost=" + cost + ", plan=" + plan + "]";
+		return "FinancePlan [id=" + id + ", fee=" + fee + ", cost=" + cost + ", plan=" + generalPlan + "]";
 	}
 	
 	

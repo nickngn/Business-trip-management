@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="personel_plan")
-@JsonIgnoreProperties("plan")
+@JsonIgnoreProperties("generalPlan")
 public class PersonelPlan implements Serializable{
 	
 	/**
@@ -26,10 +26,9 @@ public class PersonelPlan implements Serializable{
 	@Column(name="id")
 	private Integer id;
 	
-	
 	@ManyToOne
 	@JoinColumn(name="plan_id")
-	private Plan plan;
+	private GeneralPlan generalPlan;
 	
 	@JsonIgnoreProperties("plans")
 	@ManyToOne
@@ -48,12 +47,12 @@ public class PersonelPlan implements Serializable{
 		this.id = id;
 	}
 
-	public Plan getPlan() {
-		return plan;
+	public GeneralPlan getPlan() {
+		return generalPlan;
 	}
 
-	public void setPlan(Plan plan) {
-		this.plan = plan;
+	public void setPlan(GeneralPlan generalPlan) {
+		this.generalPlan = generalPlan;
 	}
 
 	public User getUser() {
@@ -66,7 +65,7 @@ public class PersonelPlan implements Serializable{
 
 	@Override
 	public String toString() {
-		return "PersonelPlan [id=" + id + ", plan=" + plan + ", user=" + user + "]";
+		return "PersonelPlan [id=" + id + ", plan=" + generalPlan + ", user=" + user + "]";
 	}
 	
 	
