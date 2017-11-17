@@ -182,14 +182,6 @@ public class GeneralPlan implements Serializable{
 		builder.append(leader);
 		builder.append(", status=");
 		builder.append(status);
-		builder.append(", personelPlanList=");
-		builder.append(personelPlanList);
-		builder.append(", personelIncurredPlanList=");
-		builder.append(personelIncurredPlanList);
-		builder.append(", financePlanList=");
-		builder.append(financePlanList);
-		builder.append(", financeIncurredPlanList=");
-		builder.append(financeIncurredPlanList);
 		builder.append("]");
 		return builder.toString();
 	}

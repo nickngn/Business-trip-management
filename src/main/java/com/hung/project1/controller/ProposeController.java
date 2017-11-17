@@ -131,6 +131,7 @@ public class ProposeController {
 		
 		generalPlan.getPersonelPlanList().forEach(personelPlan -> {
 			personelPlan.setPlan(generalPlan);
+			System.out.println(personelPlan);
 			User user = userRepo.findByUsername(personelPlan.getUser().getUsername());
 			if (user != null) {
 				personelPlan.setUser(user);

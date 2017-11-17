@@ -53,49 +53,47 @@
 				
 				<div class="col-md-10" style="margin-top: 40px" >
 					<legend><strong>Các nhân viên đi cùng:</strong></legend>
-					<table class=" table table-stripped table-hover table-responsive table-bordered">
+					<table  class=" table table-stripped table-hover table-responsive table-bordered">
 						<thead>
-							<th></th>
 							<th>STT</th>
 							<th>Tên</th>
+							<th class="col-md-1"></th>
 						</thead>
 						
-						<tbody>
+						<tbody id="personel">
 							<tr th:each="personelPlan, stat: *{personelPlanList}">
-								<td><input type="checkbox" name="chk" /></td>
-								<td th:text="${stat.count}"></td>
-								<td><input type="text" th:field="*{personelPlanList[__${stat.index}__].user.username}" class="form-control" placeholder="Tên"/></td>
+								<td class="personel-count" th:text="${stat.count}"></td>
+								<td><input type="search" th:field="*{personelPlanList[__${stat.index}__].user.username}" class="personel-input form-control" placeholder="Tên"/></td>
+								<td><button type="button" class="remove-personel btn btn-warning">Xóa</button></td>
 							</tr>
 						</tbody>
 					</table>
 					<div style="margin-top: 20px">
-						<button class="btn btn-info">Thêm</button>
-						<button class="btn btn-warning">Xóa</button>
+						<button type="button" id="personel-add" class="btn btn-info">Thêm</button>
 					</div>
 				</div>
 
 				<div class="col-md-10 " style="margin-top: 40px">
 					<legend><strong>Các khoản tạm ứng:</strong></legend>
 					
-					<table class=" table table-stripped table-hover table-responsive table-bordered">
+					<table  class=" table table-stripped table-hover table-responsive table-bordered">
 						<thead>
-							<th></th>
 							<th>STT</th>
 							<th>Chi mục</th>
 							<th>Chi phí</th>
+							<th class="col-md-1"></th>
 						</thead>
-						<tbody>
+						<tbody id="finance">
 							<tr th:each="financePlan, iterStat: *{financePlanList}">
-								<td><input type="checkbox" name="chk" /></td>
-								<td th:text="${iterStat.count}"></td>
-								<td><input type="text" th:field="*{financePlanList[__${iterStat.index}__].fee}" class="form-control" placeholder="Chi mục"/></td>
-								<td><input type="number" th:field="*{financePlanList[__${iterStat.index}__].cost}" class="form-control" placeholder="Chi phí"/></td>
+								<td class="finance-count" th:text="${iterStat.count}"></td>
+								<td><input type="text" th:field="*{financePlanList[__${iterStat.index}__].fee}" class="finance-input-fee form-control" placeholder="Chi mục"/></td>
+								<td><input type="number" th:field="*{financePlanList[__${iterStat.index}__].cost}" class="finance-input-cost form-control" placeholder="Chi phí"/></td>
+								<td><button type="button" class="remove-finance btn btn-warning">Xóa</button></td>
 							</tr>
 						</tbody>
 					</table>
 					<div style="margin-top: 20px">
-						<button class="btn btn-info">Thêm</button>
-						<button class="btn btn-warning">Xóa</button>
+						<button type="button" id="finance-add" class="btn btn-info">Thêm</button>
 					</div>
 				</div>
 				
@@ -109,6 +107,8 @@
 	
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script></script>
+	<script type="text/javascript" th:src="@{/js/propose-add.js}">
+		
+	</script>
 </body>
 </html>
