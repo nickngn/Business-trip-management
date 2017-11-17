@@ -1,33 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8"/>
-<title>Insert title here</title>
-</head>
-<body>
+
 	<!-- nav-bar -->
-	<nav class="navbar" th:fragment="header" style="background-color: #f9f9f9; box-shadow:0px 0px 10px #dedede">
-	  <div class="container">
-	    <div class="navbar-header">
-	      <a class="navbar-brand" th:href="@{'/'}">Quản lý công tác</a>
-	    </div>
-	    <ul class="nav navbar-nav">
-	    </ul>
-	    
-	    <ul sec:authorize="isAnonymous()" class="nav navbar-nav navbar-right">
-	      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Đăng ký</a></li>
-	      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Đăng nhập</a></li>
-	    </ul>
-	    <ul sec:authorize="isAuthenticated()" class="nav navbar-nav navbar-right">
-	      <li>
-	    	 <a href="#">
-	    	 	<span class="glyphicon glyphicon-user" ></span> 
-	    	 	<span sec:authentication="name"></span>
-	    	 </a>
-	      </li>
-	    </ul>
-	  </div>
+	<nav class="navbar" th:fragment="header"
+		style="background-color: #f9f9f9; box-shadow: 0px 0px 10px #dedede">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" th:href="@{'/'}">Quản lý công tác</a>
+			</div>
+			<ul class="nav navbar-nav">
+			</ul>
+
+			<ul sec:authorize="isAnonymous()" class="nav navbar-nav navbar-right">
+<!-- 				<li><a href="#"><span class="glyphicon glyphicon-user"></span> -->
+<!-- 						Đăng ký</a></li> -->
+				<li><a th:href="@{/login}"><span class="glyphicon glyphicon-log-in"></span>
+						Đăng nhập</a></li>
+			</ul>
+			<ul sec:authorize="isAuthenticated()"
+				class="nav navbar-nav navbar-right">
+				<li><a href="#"> 
+				</a></li>
+				<li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span>
+						<span sec:authentication="name"></span><span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li>
+							<form th:action="@{/logout}" method="post">
+								<input type="submit" class="btn btn-link text-center" value="Logout"/>
+							</form>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
 	</nav>
 	<!-- end nav-bar -->
-</body>
-</html>

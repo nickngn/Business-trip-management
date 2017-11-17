@@ -5,7 +5,7 @@
 		$("#personel-add").on("click", function() {
 			personelQuantity ++; console.log(personelQuantity);
 			var html = "<tr><td class='personel-count'>" + personelQuantity +"</td>" 
-							+ "<td><input type='text' class='personel-input form-control' " 
+							+ "<td><input type='text' list='user-suggest' class='personel-input form-control' " 
 							+ " name = 'personelPlanList[" + (personelQuantity - 1) + "].user.username' placeholder='Tên'/></td>" 
 							+ "<td><button type='button' class='remove-personel btn btn-warning'>Xóa</button></td>" +
 							"</tr>"
@@ -52,5 +52,21 @@
 			}
 	});
 		
-		$("personel-input").on("keyup", function() {});
+		$(document).on("keyup", ".personel-input", function() {
+			var inputValue = $(this).val();
+			var target = $(this);
+			target.innerHtml = "";
+			if(inputValue !== "") {
+				$.ajax({
+					url: "/api/users/suggested-users/" + inputValue,
+					target: target,
+					success: function(result) {
+						$("#user-suggest").text("");
+						for(var i = 0; i < result.numberOfElements; i++) {
+							$("#user-suggest").append("<option>" + result.content[i].username + "</option>");
+						}
+					}
+				});
+			}
+		});
 		

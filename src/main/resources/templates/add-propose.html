@@ -62,11 +62,14 @@
 						
 						<tbody id="personel">
 							<tr th:each="personelPlan, stat: *{personelPlanList}">
-								<td class="personel-count" th:text="${stat.count}"></td>
-								<td><input type="search" th:field="*{personelPlanList[__${stat.index}__].user.username}" class="personel-input form-control" placeholder="Tên"/></td>
+								<td class="personel-count" th:text="${stat.count}" list="user-suggest"></td>
+								<td><input type="text" list="user-suggest" th:field="*{personelPlanList[__${stat.index}__].user.username}" class="personel-input form-control" placeholder="Tên"/>
+									
+								</td>
 								<td><button type="button" class="remove-personel btn btn-warning">Xóa</button></td>
 							</tr>
 						</tbody>
+						<datalist id="user-suggest"></datalist>
 					</table>
 					<div style="margin-top: 20px">
 						<button type="button" id="personel-add" class="btn btn-info">Thêm</button>
@@ -91,6 +94,7 @@
 								<td><button type="button" class="remove-finance btn btn-warning">Xóa</button></td>
 							</tr>
 						</tbody>
+						
 					</table>
 					<div style="margin-top: 20px">
 						<button type="button" id="finance-add" class="btn btn-info">Thêm</button>

@@ -22,6 +22,8 @@ public interface UserRepository extends Repository<User, Integer>{
 	void save(User user);
 	void delete(User user);
 	
+	Page<User> findByUsernameContaining(String username, Pageable pageRequest);
+	
 	@Query("FROM User u where u.role.name = 'ROLE_EMPLOYEE' ")
 	List<User> findAllEmployee();
 }

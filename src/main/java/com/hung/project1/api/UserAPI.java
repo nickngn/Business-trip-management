@@ -161,4 +161,22 @@ public class UserAPI {
 		
 		return new HttpEntity<Page<GeneralPlanDTO>>(generalPlanDTOsPage);
 	}
+	
+	@GetMapping("/suggested-users/{username}")
+	public HttpEntity<Page<UserDTO>> suggestUserByUsername(@PathVariable String username){
+		Pageable pageRequest = new PageRequest(0,7);
+		Page<User> suggestedUser = userRepo.findByUsernameContaining(username, pageRequest);
+		List<UserDTO> suggestedUserDTO = new ArrayList<>();
+		suggestedUser.forEach(user -> {
+			UserDTO userDTO = new UserDTO();
+			BeanUtils.copyProperties(user, userDTO);
+			Link link = linkTo( methodOn(UserAPI.class).getUserDetail(user.getId())).withSelfRel();
+			userDTO.add(link);
+			suggestedUserDTO.add(userDTO);
+		});
+		Page<UserDTO> suggesteduserDTOPage = new PageImpl(
+				suggestedUserDTO, pageRequest, suggestedUser.getTotalElements());
+		
+		return new HttpEntity<Page<UserDTO>>(suggesteduserDTOPage);
+	};
 }
