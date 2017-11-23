@@ -73,6 +73,14 @@ public class FinanceIncurredPlan implements Serializable{
 		this.description = description;
 	}
 
+	public GeneralPlan getGeneralPlan() {
+		return generalPlan;
+	}
+
+	public void setGeneralPlan(GeneralPlan generalPlan) {
+		this.generalPlan = generalPlan;
+	}
+
 	public boolean isConfirmed() {
 		return isConfirmed;
 	}

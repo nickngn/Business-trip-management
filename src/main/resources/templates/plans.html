@@ -1,8 +1,9 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
 	<meta charset="UTF-8"/>
-	<title>Các đề xuất công tác</title>
+	<title th:text="${title}"></title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<base th:href="${basePath}"/>
 </head>
 <body>
 	<div th:replace="layout :: header"></div>
@@ -10,23 +11,21 @@
 	<div class="container" style="background-color: #f9f9f9; box-shadow:0px 0px 10px #dadada; margin-bottom:1%">
 		<div style="min-height: 100%">
 			<header class="page-header">
-				<h2>Các đề xuất công tác</h2>
+				<h2 th:text="${title}"></h2>
 			</header>
 			
-			<main th:if="${notConfirmedPlans.size > 0}">	
+			<main th:if="${plans.size > 0}">	
 			
-	<!-- 		Insert Modal -->
 	
-				<div class="row" style="margin:1%">
+				<div class="row" style="margin:1%" th:unless="${removeCreate}">
 					<div class="col-md-3 pull-right">
-						<a th:href="@{proposes/add}" class="btn btn-lg btn-info">
+						<a th:href="@{${basePath} + '/add'}" class="btn btn-lg btn-info">
 							<span class="glyphicon glyphicon-plus"></span>
 							Tạo đề xuất
 						</a>
 					</div>
 				</div>
 				
-	<!-- 			End Insert Modal -->
 	
 	<!-- Proposes Table -->
 	
@@ -39,9 +38,9 @@
 						<th>Trạng thái</th>		
 					</thead>
 					<tbody>	
-						<tr th:each="plan, no : ${notConfirmedPlans.content}">	
+						<tr th:each="plan, no : ${plans.content}">	
 							<td th:text="${no.count + (page -1) * size}"></td>
-							<td><a th:href="@{/proposes/} + ${plan.id}" th:text="${plan.name}"></a></td>
+							<td><a th:href="${basePath} + '/' + ${plan.id}" th:text="${plan.name}"></a></td>
 							<td th:text="${plan.startDate}"></td>
 							<td th:text="${plan.finishDate}"></td>
 							<td th:text="${plan.status}"></td>
@@ -50,14 +49,14 @@
 				</table>
 				
 				<div class="col-md-5 pull-right">
-					<a th:if="${page gt 1}" th:href="@{'/proposes?page='} + ${page - 1}" th:utext="${(page - 1)}"></a>
+					<a th:if="${page gt 1}" th:href="@{'?page='} + ${page - 1}" th:utext="${(page - 1)}"></a>
 					<span>________</span>
-					<a th:if="${page lt notConfirmedPlans.totalPages}" th:href="@{'/proposes?page='} + ${page + 1}" th:text="${page + 1}"></a>
+					<a th:if="${page lt plans.totalPages}" th:href="@{${basePath} + '?page='} + ${page + 1}" th:text="${page + 1}"></a>
 				</div>
 			</main>
 			
 			
-			<main th:if="${notConfirmedPlans.size == 0}" class="text-center">	
+			<main th:if="${plans.size == 0}" class="text-center">	
 				<p><h3>Không có đề xuất nào</h3></p>
 			</main>
 			<!-- 		End Proposes Table -->

@@ -22,6 +22,9 @@ public interface GeneralPlanRepository extends Repository<GeneralPlan, Integer>{
 	@Query(value="FROM GeneralPlan p WHERE p.status='Chưa duyệt' ORDER BY p.startDate DESC")
 	Page<GeneralPlan> findUnconfirmedPlan(Pageable pageRequest);
 	
+	@Query(value="FROM GeneralPlan p WHERE p.status='Đã đồng ý' ORDER BY p.startDate DESC")
+	Page<GeneralPlan> findAcceptedPlan(Pageable pageRequest);
+	
 	@Query(value="SELECT p FROM GeneralPlan p where p.leader.id= :leaderId")
 	Page<GeneralPlan> findByLeaderId(@Param("leaderId") int leaderId, Pageable pageRequest);
 	

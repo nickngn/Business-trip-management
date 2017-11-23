@@ -56,13 +56,16 @@ public class ProposeController {
 			ModelMap map) {
 		logger.info(" - viewPlanProposes() :");
 
-		Pageable pageRequest = new PageRequest(page, size);
-		Page<GeneralPlan> notConfirmedPlans = planRepo.findUnconfirmedPlan(pageRequest);
-		map.addAttribute("notConfirmedPlans", notConfirmedPlans);
+		Pageable pageRequest = new PageRequest(page-1, size);
+		Page<GeneralPlan> unconfirmedPlans = planRepo.findUnconfirmedPlan(pageRequest);
+		map.addAttribute("plans", unconfirmedPlans);
 		map.addAttribute("page", page);
 		map.addAttribute("size", size);
+		map.addAttribute("basePath", "/proposes");
 		//
-		return "proposes";
+		map.addAttribute("title", "Đề xuất công tác");
+		
+		return "plans";
 	}
 	
 	@GetMapping("/proposes/{id}")
@@ -76,7 +79,7 @@ public class ProposeController {
 		map.addAttribute("financePlan", financePlan);
 		
 		//
-		return "propose-detail";
+		return "plan-detail";
 	}
 	
 	@GetMapping("/proposes/{id}/accept")

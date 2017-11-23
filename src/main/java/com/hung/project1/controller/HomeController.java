@@ -16,8 +16,8 @@ public class HomeController {
 		return "login";
 	}
 	
-//	@GetMapping("/403")
-//	public String viewAuthenicationException() {
-//		return "403";
-//	}
+	@GetMapping("/logout")
+	public String viewAuthenicationException() {
+		return "redirect:/login";
+	}
 }
