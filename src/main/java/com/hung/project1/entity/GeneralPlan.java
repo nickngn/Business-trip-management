@@ -42,11 +42,11 @@ public class GeneralPlan implements Serializable{
     private String location;
     
     @Column(name="start_date")
-    @DateTimeFormat(pattern="yy-MM-dd")
+    @DateTimeFormat(pattern="dd-MM-yy")
     private Date startDate;
     
     @Column(name="finish_date")
-    @DateTimeFormat(pattern="yy-MM-dd")
+    @DateTimeFormat(pattern="dd-MM-yy")
     private Date finishDate;
     
     @JsonIgnoreProperties({"plans", "password"})
@@ -55,6 +55,9 @@ public class GeneralPlan implements Serializable{
     private User leader;
     
     private String status;
+    
+    @Column(name="total_cost")
+    private double cost;
     
     @OneToMany(mappedBy="generalPlan")
     private List<PersonelPlan> personelPlanList;
@@ -163,6 +166,14 @@ public class GeneralPlan implements Serializable{
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public double getCost() {
+		return cost;
+	}
+
+	public void setCost(double cost) {
+		this.cost = cost;
 	}
 
 	@Override

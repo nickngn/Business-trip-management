@@ -31,7 +31,6 @@ import com.hung.project1.entity.PersonelPlan;
 import com.hung.project1.repository.FinancePlanRepository;
 import com.hung.project1.repository.GeneralPlanRepository;
 import com.hung.project1.repository.PersonelPlanRepository;
-import com.hung.project1.repository.UserRepository;
 
 @RestController
 @RequestMapping("/api/plans")
@@ -42,9 +41,6 @@ public class GeneralPlanAPI {
 	
 	@Autowired
 	private GeneralPlanRepository generalPlanRepo;
-	
-	@Autowired
-	private UserRepository userRepo;
 	
 	@Autowired
 	private PersonelPlanRepository personelPlanRepo;

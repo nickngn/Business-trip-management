@@ -8,10 +8,17 @@
 </head>
 <body>
 	<div th:replace="layout :: header"></div>
-<main class="container" style="margin-top:100px">
+<main class="container" style="margin-top:100px" sec:authorize="!isAnonymous()">
 			
-	<div class="row" sec:authorize="hasRole('DIRECTOR') OR hasRole('EMPLOYEE') OR hasRole('SYSTEM_MANAGEMENT')">
-		<div class="col-md-3 col-md-offset-1">
+	<div class="row">
+		<div class="col-md-3 col-md-offset">
+			<a th:href="@{/notifications}" class="btn btn-default">
+				<img th:src="@{img/notification.jpg}" alt="propose" class="img img-round img-responsice" style="max-height:150px"/>
+				<p><strong>Thông báo</strong></p>
+			</a>
+		</div>
+		
+		<div class="col-md-3 col-md-offset-">
 			<a th:href="@{/proposes}" class="btn btn-default">
 				<img th:src="@{img/propose.jpg}" alt="propose" class="img img-round img-responsice" style="max-height:150px"/>
 				<p><strong>Đề xuất công tác</strong></p>
@@ -26,17 +33,13 @@
 		</div>
 		
 		<div class="col-md-3 col-md-offset-">
-			<a href="#" class="btn btn-default">
+			<a th:href="@{/histories}" class="btn btn-default">
 				<img th:src="@{img/completed.png}" alt="propose" class="img img-round img-responsice" style="max-height:150px"/>
-				<p><strong>Công tác hoàn thành</strong></p>
+				<p><strong>Lịch sử</strong></p>
 			</a>
 		</div>
 	</div>
 	
-	<div sec:authorize="hasRole('ACCOUNTANT') OR hasRole('SYSTEM_MANAGEMENT')">
-		<a href="#" class="btn btn-default">Yêu cầu thanh toán</a>
-		<a href="#" class="btn btn-default">Lịch sử</a>
-	</div>
 </main>
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

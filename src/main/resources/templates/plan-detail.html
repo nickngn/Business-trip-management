@@ -2,7 +2,7 @@
 		xmlns:th="http://thymeleaf.org">
 <head>
 	<meta charset="UTF-8"/>
-	<title>Nhân viên đề xuất</title>
+	<title th:text="${plan.name}"></title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 	<meta th:if="${isLeader == true}" th:name="_csrf" th:content="${_csrf.token}"/>
 	<meta th:if="${isLeader == true}" th:name="_csrf_header" th:content="${_csrf.headerName}"/>
@@ -15,6 +15,9 @@
 		<header class="page-header">
 			<h2 th:text="${plan.name}"></h2>
 			<h5 th:text="${plan.status}"></h5>
+			<div class="col-md-4 pull-right">
+				<a th:href="${'/payment/' + plan.id}"><strong>Tổng kết chi phí công tác</strong></a>
+			</div>
 		</header>
 
 		<main>
@@ -216,7 +219,7 @@
 				</div>
 
 				<div class="col-md-10 " style="margin-top: 40px" th:if="${(plan.status == 'Đã đồng ý')}">
-					<legend><strong>Các khoản tạm ứng:</strong></legend>
+					<legend><strong>Các khoản phát sinh thêm trong quá trình công tác:</strong></legend>
 					
 					<table th:unless="${#lists.isEmpty(financeIncurredPlans)}" class=" table table-stripped table-hover table-responsive table-bordered">
 						<thead>

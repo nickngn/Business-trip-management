@@ -8,9 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +29,7 @@ import com.hung.project1.repository.GeneralPlanRepository;
 import com.hung.project1.repository.PersonelIncurredPlanRepository;
 import com.hung.project1.repository.PersonelPlanRepository;
 import com.hung.project1.repository.UserRepository;
+import com.hung.project1.service.RoleService;
 
 @Controller
 public class BusinessTripController {
@@ -54,7 +52,7 @@ public class BusinessTripController {
 	private FinanceIncurredPlanRepository financeIncurredPlanRepo; 
 	
 	@Autowired
-	private UserDetailsService userDetailServ; 
+	private RoleService roleService;
 	
 	@Autowired
 	private UserRepository userRepo;
@@ -80,26 +78,29 @@ public class BusinessTripController {
 		return "plans";
 	}
 	
-	@GetMapping("/business-trips/{id}")
-	public String viewBusinessTripDetail(@PathVariable int id, ModelMap map) {
-		GeneralPlan generalPlan = planRepo.findById(id);
-		List<PersonelPlan> personelPlan = personelPlanRepo.findByGeneralPlanId(generalPlan.getId());
-		List<FinancePlan> financePlan = financePlanRepo.findByGeneralPlanId(generalPlan.getId());
+	@GetMapping("/business-trips/{planId}")
+	public String viewBusinessTripDetail(@PathVariable int planId, ModelMap map) {
+		GeneralPlan generalPlan = planRepo.findById(planId);
 		
-		List<PersonelIncurredPlan> personelIncurredPlans = personelIncurredPlanRepo.findByGeneralPlanId(generalPlan.getId());
+		List<PersonelPlan> personelPlanList = personelPlanRepo
+				.findByGeneralPlanId(generalPlan.getId());
 		
-		List<FinanceIncurredPlan> financeIncurredPlans = financeIncurredPlanRepo.findByGeneralPlanId(generalPlan.getId());
+		List<FinancePlan> financePlanList = financePlanRepo
+				.findByGeneralPlanId(generalPlan.getId());
 		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String username = auth.getName();
+		List<PersonelIncurredPlan> personelIncurredPlanList = personelIncurredPlanRepo
+				.findByGeneralPlanId(generalPlan.getId());
+		
+		List<FinanceIncurredPlan> financeIncurredPlanList = financeIncurredPlanRepo
+				.findByGeneralPlanId(generalPlan.getId());
 		
 		map.addAttribute("plan", generalPlan);
-		map.addAttribute("personelPlan", personelPlan);
-		map.addAttribute("financePlan", financePlan);
-		map.addAttribute("financeIncurredPlans", financeIncurredPlans);
-		map.addAttribute("personelIncurredPlans", personelIncurredPlans);
+		map.addAttribute("personelPlan", personelPlanList);
+		map.addAttribute("financePlan", financePlanList);
+		map.addAttribute("financeIncurredPlans", financeIncurredPlanList);
+		map.addAttribute("personelIncurredPlans", personelIncurredPlanList);
 		
-		map.addAttribute("isLeader", username.equals(generalPlan.getLeader().getUsername()));
+		map.addAttribute("isLeader", roleService.checkLoggedInUserAsLeader(generalPlan));
 		//
 		return "plan-detail";
 	}
@@ -109,11 +110,9 @@ public class BusinessTripController {
 	public String viewChangePersonel(@PathVariable("id") int planId, 
 			@RequestBody PersonelIncurredPlan personelIncurredPlan ,
 			ModelMap map) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		GeneralPlan generalPlan = planRepo.findById(planId);
-		String loggedInUsername = auth.getName(),
-				leaderUsername = generalPlan.getLeader().getUsername();
-		if(!loggedInUsername.equals(leaderUsername)) {
+		
+		if(!roleService.checkLoggedInUserAsLeader(generalPlan)) {
 			return "Permission Error";
 		}
 		User user = userRepo.findByUsername(personelIncurredPlan.getUser().getUsername());
@@ -130,23 +129,20 @@ public class BusinessTripController {
 			@RequestParam("fee") String fee,
 			@RequestParam("cost") double cost,
 			ModelMap map) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		GeneralPlan generalPlan = planRepo.findById(planId);
-		String loggedInUsername = auth.getName(),
-				leaderUsername = generalPlan.getLeader().getUsername();
-		if(!loggedInUsername.equals(leaderUsername)) {
-			return "error";
+		if(!roleService.checkLoggedInUserAsLeader(generalPlan)) {
+			return "Permission error";
 		}
+		//create finance incurred plan
 		FinanceIncurredPlan financeIncurredPlan = new FinanceIncurredPlan();
 		financeIncurredPlan.setPlan(generalPlan);
 		financeIncurredPlan.setFee(fee);
 		financeIncurredPlan.setCost(cost);
 		financeIncurredPlan.setConfirmed(false);
-		
+		//save
 		financeIncurredPlanRepo.save(financeIncurredPlan);
 		
 		return "success";
-		
 	}
 	
 }

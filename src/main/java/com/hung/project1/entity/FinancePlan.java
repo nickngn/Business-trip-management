@@ -26,6 +26,8 @@ public class FinancePlan implements Serializable{
 	private Integer id;
 	private String fee;
 	private Double cost;
+	private double tax;
+	private String description;
 	
 	@JsonIgnoreProperties("financePlanList")
 	@ManyToOne
@@ -36,30 +38,71 @@ public class FinancePlan implements Serializable{
 		super();
 	}
 	
+
 	public Integer getId() {
 		return id;
 	}
+
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
+
 	public String getFee() {
 		return fee;
 	}
+
+
 	public void setFee(String fee) {
 		this.fee = fee;
 	}
+
+
 	public Double getCost() {
 		return cost;
 	}
+
+
 	public void setCost(Double cost) {
 		this.cost = cost;
 	}
-	public GeneralPlan getPlan() {
+
+
+	public double getTax() {
+		return tax;
+	}
+
+
+	public void setTax(double tax) {
+		this.tax = tax;
+	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+	public GeneralPlan getGeneralPlan() {
 		return generalPlan;
 	}
-	public void setPlan(GeneralPlan generalPlan) {
+
+
+	public void setGeneralPlan(GeneralPlan generalPlan) {
 		this.generalPlan = generalPlan;
 	}
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 
 	@Override
 	public String toString() {

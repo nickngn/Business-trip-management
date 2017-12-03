@@ -33,7 +33,6 @@ import com.hung.project1.repository.UserRepository;
 
 @RestController
 @RequestMapping("/api/users")
-//@ExposesResourceFor(value=UserDTO.class)
 public class UserAPI {
 	
 	@Autowired
@@ -174,7 +173,7 @@ public class UserAPI {
 			userDTO.add(link);
 			suggestedUserDTO.add(userDTO);
 		});
-		Page<UserDTO> suggesteduserDTOPage = new PageImpl(
+		Page<UserDTO> suggesteduserDTOPage = new PageImpl<>(
 				suggestedUserDTO, pageRequest, suggestedUser.getTotalElements());
 		
 		return new HttpEntity<Page<UserDTO>>(suggesteduserDTOPage);

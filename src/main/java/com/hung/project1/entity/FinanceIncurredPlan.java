@@ -26,6 +26,7 @@ public class FinanceIncurredPlan implements Serializable{
 	private Integer id;
 	private String fee;
 	private Double cost;
+	private Double tax;
 	private String description;
 	
 	@JsonIgnoreProperties("financeIncurredPlanList")
@@ -87,6 +88,20 @@ public class FinanceIncurredPlan implements Serializable{
 
 	public void setConfirmed(boolean isConfirmed) {
 		this.isConfirmed = isConfirmed;
+	}
+
+	
+
+	public Double getTax() {
+		return tax;
+	}
+
+	public void setTax(Double tax) {
+		this.tax = tax;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override

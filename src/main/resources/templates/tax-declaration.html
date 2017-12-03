@@ -1,140 +1,120 @@
-<html>
+<html xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity4"
+		xmlns:th="http://thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<title>Đề xuất chi phí</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<meta charset="UTF-8"/>
+	<title th:text="${title}"></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<meta th:name="_csrf" th:content="${_csrf.token}"/>
+	<meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
-<body  class="" style="margin-bottom: 50px">
-	<div class=" container well">	
+<body style="margin-bottom: 50px">
+
+	<div th:replace="layout :: header"></div>
+	
+	<input type="hidden" id="planId" th:value="${plan.id}"/>
+	
+	<div class="container"
+		style="background-color: #f9f9f9; box-shadow: 0px 0px 10px #dadada">
 		<header class="page-header">
-			<p><h2>Đề xuất chi phí trong quá trình công tác</h2></p>
+			<h2 th:text="${plan.name}"></h2>
+			<h5 th:text="${plan.status}"></h5>
 		</header>
 
-		<main>	
-			<div class="col-md-12">
-				<div class="row col-md-6" style="margin-top: 40px">
-					<legend><strong>Thông tin nhân viên</strong></legend>
+		<main>
 
-					<div class="form-group col-md-12">
-						<label for="" class="col-md-4">Mã nhân viên:</label>
-						<div class="col-md-8">
-							ABCDEF
-						</div>
-					</div>
-
-					<div class="form-group col-md-12">
-						<label for="" class="col-md-4">Họ tên:</label>
-						<div class="col-md-8">
-							Nguyễn Văn A
-						</div>
-					</div>
-
-					<div class="form-group col-md-12">
-						<label for="" class="col-md-4">Chức vụ:</label>
-						<div class="col-md-8">
-							Phó giám đốc
-						</div>
-					</div>
-
-					<div class="form-group col-md-12">
-						<label for="" class="col-md-4">Đơn vị:</label>
-						<div class="col-md-8">
-							Chi nhánh XYZ
-						</div>
-					</div>
-
-					<div class="form-group col-md-12">
-						<label for="" class="col-md-4">Số điện thoại:</label>
-						<div class="col-md-8">
-							0123456789
-						</div>
-					</div>
-
+		<div  style="margin-top: 40px">
+			<legend>
+				<strong>Các mục hóa đơn và kê khai thuế</strong>
+			</legend>
+			<form action="#">
+				<div>
+					<p>Mã hóa đơn: CT-<span th:text="${plan.id}"></span></p>
 				</div>
+				<table
+					class=" table table-stripped table-hover table-responsive table-bordered">
+					<thead>
+						<th>STT</th>
+						<th>Chi mục</th>
+						<th>Số tiền (VND)</th>
+						<th>Mức thuế(%)</th>
+						<th>Số tiền trong mức thuế (VND)</th>
+						<th>Tổng tiền cả thuế (VND)</th>
+						<th>Đã đồng ý</th>
+						<th>Ghi chú</th>
+						<th  th:if="${plan.status == 'Đã đồng ý'}"  sec:authorize="hasRole('ACCOUNTANT')"></th>
+					</thead>
+					<tbody>
+						<tr th:unless="${#lists.isEmpty(financePlan)}">
+							<td colspan="8">Tiền tạm ứng trước công tác:</td>
+						</tr>
+						<tr th:each="finance, iterStats : ${financePlan}">
+							<td th:text="${iterStats.count}"></td>
+							<td th:text="${finance.fee}"></td>
+							<td th:text="${finance.cost}"></td>
+							<td th:text="${finance.tax}"></td>
+							<td th:text="${finance.cost * finance.tax/100}"></td>
+							<td th:text="${finance.cost * (1 + finance.tax/100)}" class="finance"></td>
+							<td>
+								<span th:if="${plan.status=='Đã từ chối'}">Không</span>
+								<span th:if="${plan.status=='Đã đồng ý'}">Có</span>
+								<span th:if="${plan.status=='Đã hoàn thành'}">Có</span>
+								<span th:if="${plan.status=='Chưa duyệt'}">Đang chờ</span>
+							</td>
+							<td th:text="${finance.description}"></td>
+							<td th:if="${plan.status == 'Đã đồng ý'}"  sec:authorize="hasRole('ACCOUNTANT')"></td>
+						</tr>
+						<tr th:unless="${#lists.isEmpty(financeIncurredPlans)}">
+							<td colspan="8">Tiền phát sinh khi công tác:</td>
+						</tr>
+						<tr th:each="finance, iterStats : ${financeIncurredPlans}" th:id="${finance.id}">
+							<td th:text="${iterStats.count}" class="incurred-finance-count"></td>
+							<td th:text="${finance.fee}"></td>
+							<td th:text="${finance.cost}"></td>
+							<td th:text="${finance.tax}"></td>
+							<td th:text="${finance.cost * finance.tax/100}"></td>
+							<td th:text="${finance.cost * (1 + finance.tax/100)}" class="finance"></td>
+							<td>
+								<span th:if="${finance.confirmed}">Có</span>
+								<span th:unless="${finance.confirmed}">Không</span>
+							</td>
+							<td th:text="${finance.description}"></td>
+							<td  th:if="${plan.status == 'Đã đồng ý'}"  sec:authorize="hasRole('ACCOUNTANT')"><button type="button" class="remove btn btn-warning">Bỏ</button></td>
+						</tr>
+					</tbody>
 
-				<div class="row col-md-6" style="margin-top: 40px">
-					<legend><strong>Chi tiết chuyển công tác</strong></legend>
-					<div class="form-group col-md-12">
-						<label for="" class="col-md-4">Tên chuyển công tác:</label>
-						<a href="#" title="Nhấn vào để xem chi tiết">Kí hợp đồng buôn bán với công ty HIJ</a>
-					</div>
-
-					<div class="form-group col-md-12">
-						<label for="" class="col-md-4">Địa điểm:</label>
-						<div class="col-md-6">
-							Cầu Giấy, Hà Nội
-						</div>
-					</div>
-
-					<div class="form-group col-md-12">
-						<label for="" class="col-md-4">Thời gian:</label>
-						<div class="col-md-4">
-							23-10-2017
-						</div>
-					</div>
-
-					<div class="form-group col-md-12">
-						<label for="" class="col-md-4">Thời gian kết thúc:</label>
-						<div class="col-md-4">
-							23-10-2017
-						</div>
-					</div>
-
-					<div class="form-group col-md-12">
-						<label for="" class="col-md-4">Mục đích công tác:</label>
-						<div class="col-md-8">
-							Kí hợp đồng kinh doanh với công ty HIJ
-						</div>
-					</div>
+				</table>
+				<div class="col-md-4 pull-right">
+					<p><strong>Số tiền thanh toán: <span id="total-finance" th:text="${totalFinance}"></span> VND</strong></p>
 				</div>
-			</div>
-			
-			<div class="col-md-12">
-				<legend><strong>Các mục hóa đơn và kê khai thuế</strong></legend>
-				<form action="	">
+<!-- 				<div> -->
+<!-- 					<button class="btn btn-info">Thêm</button> -->
+<!-- 				</div> -->
 
-					<table class=" table table-stripped table-hover table-responsive table-bordered">
-						<thead>
-							<th></th>
-							<th>STT</th>
-							<th>Mã hóa đơn</th>
-							<th>Mức thuế(%)</th>
-							<th>Số tiền trong mức thuế</th>	
-							<th>Thành tiền</th>
-							<th>Ghi chú</th>		
-						</thead>
-						<tbody>	
-							<tr>	
-								<td><input type="checkbox"></td>
-								<td>1</td>
-								<td><input type="text" class="form-control" placeholder="mã hóa đơn"></td>
-								<td><input type="number" class="form-control" placeholder="mức thuế" min="0" max="99"></td>
-								<td><input type="number" class="form-control" placeholder="số tiền"></td>
-								<td>0</td>
-								<td><textarea class="form-control" style="resize: none;" name="" id="" cols="30" rows="3"></textarea></td>
-							</tr>
-						</tbody>
-
-					</table>
-					<div>
-						<button class="btn btn-info">Thêm</button>
-						<button class="btn btn-warning">Xóa</button>
-					</div>
-
-					<div class="col-md-9 col-md-offset-3" style="margin-top: 40px">
-						<div class="col-md-5">
-							<button class="btn btn-success btn-lg">Lưu</button>
-						</div>
+				<div class="col-md-9 col-md-offset-3" style="margin-top: 40px"  th:if="${plan.status == 'Đã đồng ý'}" sec:authorize="hasRole('ACCOUNTANT')">
+					<div class="col-md-5">
 						<button class="btn btn-danger btn-lg">Hủy bỏ</button>
 					</div>
-				</form>
-			</div>
+						<button id="submit" class="btn btn-success btn-lg">Báo cáo</button>
+				</div>
+			</form>
+		</div>
 
-
-		</main>
+		<!-- 				Option for director -->
+		<div class="col-md-4 col-md-offset-3"
+			sec:authorize="hasRole('DIRECTOR')"
+			th:if="${plan.status == 'Chưa duyệt'}">
+			<a th:href="@{'/proposes/' + ${plan.id} + '/accept'}"
+				class="btn btn-success btn-lg">Xác nhận</a> <a
+				th:href="@{'/proposes/' + ${plan.id} + '/deny'}"
+				class="btn btn-error btn-lg pull-right">Từ chối</a>
+		</div>
+		<!-- 				Option for director --> </main>
 	</div>
 
+
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script th:src="${'/js/payment.js'}"></script>
 </body>
 </html>

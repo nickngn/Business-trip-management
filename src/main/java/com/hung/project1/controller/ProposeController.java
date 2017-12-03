@@ -11,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -42,9 +41,6 @@ public class ProposeController {
 	
 	@Autowired
 	private FinancePlanRepository financePlanRepo;
-	
-	@Autowired
-	private UserDetailsService userDetailServ; 
 	
 	@Autowired
 	private UserRepository userRepo;
@@ -122,29 +118,29 @@ public class ProposeController {
 	}
 	
 	@PostMapping("/proposes/add")
-	public String proposeGeneralPlan(@ModelAttribute GeneralPlan generalPlan, Authentication authentication) {
+	public String proposeGeneralPlan(@ModelAttribute GeneralPlan generalPlan) {
 		logger.info("proposeGeneralPlan()");
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
 		User loggedUser = userRepo.findByUsername(username);
+		
 		generalPlan.setLeader(loggedUser);
 		generalPlan.setStatus("Chưa duyệt");
 		planRepo.save(generalPlan);
 		
 		generalPlan.getPersonelPlanList().forEach(personelPlan -> {
-			personelPlan.setPlan(generalPlan);
-			System.out.println(personelPlan);
-			User user = userRepo.findByUsername(personelPlan.getUser().getUsername());
-			if (user != null) {
-				personelPlan.setUser(user);
+			String nameOfChoseUser = personelPlan.getUser().getUsername();
+			User userFoundByUsername = userRepo.findByUsername(nameOfChoseUser);
+			if (userFoundByUsername != null) {
+				personelPlan.setPlan(generalPlan);
+				personelPlan.setUser(userFoundByUsername);
 				personelPlanRepo.save(personelPlan);
 			}
-			
 		});
 		
 		generalPlan.getFinancePlanList().forEach(financePlan -> {
-			financePlan.setPlan(generalPlan);
+			financePlan.setGeneralPlan(generalPlan);
 			financePlanRepo.save(financePlan);
 		});
 		
