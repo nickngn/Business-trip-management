@@ -1,7 +1,7 @@
 var removedPlans = new Array();
 $(document).on("click", "button.remove", function() {
 
-	$(this).closest("tr").hide();
+	$(this).closest("tr").remove();
 	
 	var id = $(this).closest("tr").attr("id");
 	removedPlans.push(id);

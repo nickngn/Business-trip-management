@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -34,13 +37,19 @@ public class PersonelIncurredPlan implements Serializable{
 	@JoinColumn(name="plan_id")
 	private GeneralPlan generalPlan;
 	
+	@NotNull(message="Nhân viên không được để trống")
 	@JsonIgnoreProperties("plans")
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
 	
+	@NotEmpty(message="Thay đổi không được để trống")
 	private String action;
+	
+	@NotNull(message="Ngày không được để trống")
 	private Date date;
+	
+	@NotEmpty(message="Ghi chú được để trống")
 	private String description;
 	
 	@Column(name="is_confirmed")

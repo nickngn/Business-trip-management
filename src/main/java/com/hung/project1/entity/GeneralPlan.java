@@ -12,7 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -37,16 +39,19 @@ public class GeneralPlan implements Serializable{
 	@Column(name="id")
 	private Integer id;
 	
-    private String name;
+	@NotEmpty(message="Tên không được để trống")
+	private String name;
     
-    private String location;
+	@NotEmpty(message="Nơi công tác không được để trống")
+	private String location;
     
+	@NotNull(message="Thời gian bắt đầu không được để trống")
     @Column(name="start_date")
-    @DateTimeFormat(pattern="dd-MM-yy")
+    @DateTimeFormat(pattern="yy-MM-dd")
     private Date startDate;
     
     @Column(name="finish_date")
-    @DateTimeFormat(pattern="dd-MM-yy")
+    @DateTimeFormat(pattern="yy-MM-dd")
     private Date finishDate;
     
     @JsonIgnoreProperties({"plans", "password"})

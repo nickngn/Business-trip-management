@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -28,13 +30,16 @@ public class User implements Serializable{
 	@Column(name="id")
 	private Integer id;
 	
+	@NotEmpty(message="Username không được để trống")
 	private String username;
 	
+	@NotEmpty(message="Mật khẩu không được để trống")
 	private String password;
 	
+	@NotEmpty(message="Vị trí không được để trống")
 	private String position;
 	
-	@Column(name="work_unit")
+	@NotEmpty(message="Đơn vị không được để trống")
 	private String workUnit;
 	
 	private String phone;

@@ -3,6 +3,8 @@ package com.hung.project1.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -98,7 +101,9 @@ public class ProposeController {
 	
 	@GetMapping("/proposes/add")
 	public String viewAddProposeView(Model model) {
+		
 		int availableId = planRepo.findMaxId() + 1;
+		
 		List<PersonelPlan> personelPlans= new ArrayList<>() ;
 		PersonelPlan emptyPersonelPlan = new PersonelPlan();
 		personelPlans.add(emptyPersonelPlan);
@@ -118,8 +123,13 @@ public class ProposeController {
 	}
 	
 	@PostMapping("/proposes/add")
-	public String proposeGeneralPlan(@ModelAttribute GeneralPlan generalPlan) {
+	public String proposeGeneralPlan(@Valid @ModelAttribute GeneralPlan generalPlan, 
+			BindingResult result) {
 		logger.info("proposeGeneralPlan()");
+		
+		if (result.hasErrors()) {
+			return "add-propose";
+		}
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();

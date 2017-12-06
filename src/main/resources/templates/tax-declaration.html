@@ -26,7 +26,6 @@
 			<legend>
 				<strong>Các mục hóa đơn và kê khai thuế</strong>
 			</legend>
-			<form action="#">
 				<div>
 					<p>Mã hóa đơn: CT-<span th:text="${plan.id}"></span></p>
 				</div>
@@ -90,13 +89,12 @@
 <!-- 					<button class="btn btn-info">Thêm</button> -->
 <!-- 				</div> -->
 
-				<div class="col-md-9 col-md-offset-3" style="margin-top: 40px"  th:if="${plan.status == 'Đã đồng ý'}" sec:authorize="hasRole('ACCOUNTANT')">
+				<div class="col-md-9 col-md-offset-3" style="margin-top: 40px">
 					<div class="col-md-5">
-						<button class="btn btn-danger btn-lg">Hủy bỏ</button>
+						<button onclick="history.back(-1)" class="btn btn-danger btn-lg">Trở về</button>
 					</div>
-						<button id="submit" class="btn btn-success btn-lg">Báo cáo</button>
+						<button  sec:authorize="hasRole('ACCOUNTANT')" th:if="${plan.status == 'Đã đồng ý'}" id="submit" class="btn btn-success btn-lg">Xác nhận</button>
 				</div>
-			</form>
 		</div>
 
 		<!-- 				Option for director -->

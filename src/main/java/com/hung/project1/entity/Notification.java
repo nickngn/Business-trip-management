@@ -8,8 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -24,16 +26,24 @@ public class Notification implements Serializable {
 	@Id @GeneratedValue
 	@Column(name="id")
 	private Integer id;
-	@NotNull
+	
+	@NotEmpty(message="Tên không được để trống")
 	private String name;
+	
+	@NotNull(message="Số lượng người phải lớn hơn 1")
+	@Min(value=1, message="Số lượng người phải lớn hơn 1")
 	private int personQuantity;
+	
+	@NotEmpty(message="Nơi công tác không được để trống")
 	private String location;
 	
-	@DateTimeFormat(pattern="dd-MM-yy")
+	@DateTimeFormat(pattern="mm-dd-yyyy")
+	@NotNull(message="Ngày bắt đầu không được để trống")
 	private Date startDate;
 	
-	@DateTimeFormat(pattern="dd-MM-yy")
+	@DateTimeFormat(pattern="mm-dd-yyyy")
 	private Date endDate;
+	
 	private String description;
 
 	public Notification() {

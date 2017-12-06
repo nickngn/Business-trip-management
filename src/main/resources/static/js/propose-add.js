@@ -18,6 +18,7 @@
 				+ "<td class='finance-count'>" + financeQuantity + "</td>"
 				+ "<td><input type='text' class='finance-input-fee form-control' placeholder='Chi mục'  name='financePlanList[" + (financeQuantity - 1) + "].fee'></td>"
 				+ "<td><input type='number' class='finance-input-cost form-control' placeholder='Chi phí' name='financePlanList[" + (financeQuantity - 1) + "].cost'></td>"
+				+ "<td><input type='number' class='finance-input-tax form-control' placeholder='Thuế' name='financePlanList[" + (financeQuantity - 1) + "].tax'></td>"
 				+ "<td><button type='button' class='remove-finance btn btn-warning'>Xóa</button></td>"
 				+ "</tr>";
 			console.log(html);
@@ -35,6 +36,7 @@
 					$(".finance-count:eq(" + (x) + ")").text(x + 1);
 					$(".finance-input-fee:eq(" + (x) + ")").attr('name', "financePlanList[" + x + "].fee");
 					$(".finance-input-cost:eq(" + (x) + ")").attr('name', "financePlanList[" + x + "].cost");
+					$(".finance-input-tax:eq(" + (x) + ")").attr('name', "financePlanList[" + x + "].tax");
 				}
 			
 		});

@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -33,6 +34,7 @@ public class PersonelPlan implements Serializable{
 	@JsonIgnoreProperties("plans")
 	@ManyToOne
 	@JoinColumn(name="user_id")
+	@NotNull(message="Nhân viên không được để trống")
 	private User user;
 	
 	public PersonelPlan() {

@@ -171,6 +171,11 @@
 						      </div>
 						      <div class="modal-body">
 						      	<div class="form-horizontal">
+						      	<div class="form-group">
+						      			<div class="col-md-8" id="errors-incurred-personel">
+							        		
+							        	</div>
+							        </div>
 						      		<div class="form-group">
 							        	<label for="username" class="col-md-3" >Nhân viên:</label>
 							        	<div class="col-md-8">
@@ -226,15 +231,14 @@
 							<th>STT</th>
 							<th>Chi mục</th>
 							<th>Chi phí</th>
-<!-- 							<th>Trạng thái</th> -->
+							<th>Thuế (%)</th>
 						</thead>
 						<tbody>
 							<tr th:each="finance, iterStats : ${financeIncurredPlans}">
 								<td th:text="${iterStats.count}"></td>
 								<td th:text="${finance.fee}"></td>
 								<td th:text="${finance.cost}"></td>
-<!-- 								<td th:if="${finance.confirmed == true}" th:text="'Đồng ý'"></td> -->
-<!-- 								<td th:if="${finance.confirmed == false}" th:text="'Từ chối'"></td> -->
+								<td th:text="${finance.tax}"></td>
 							</tr>
 						</tbody>
 					</table>
@@ -259,6 +263,13 @@
 						      <div class="modal-body">
 						      	<div class="form-horizontal">
 						      		<input type="hidden" id="planId" th:value="${plan.id}"/>
+						      		
+						      		<div class="form-group">
+						      			<div class="col-md-8" id="errors-incurred-finance">
+							        		
+							        	</div>
+							        </div>
+							        
 						      		<div class="form-group">
 							        	<label for="fee" class="col-md-3" >Phí:</label>
 							        	<div class="col-md-8">
@@ -269,7 +280,14 @@
 							        <div class="form-group">
 							        	<label for="cost" class="col-md-3" >Số tiền(VND):</label>
 							        	<div class="col-md-8">
-							        		<input type="number" class="form-control" min="0" step="any"  id="cost"/>
+							        		<input type="number" class="form-control" min="0" value="0" step="any"  id="cost"/>
+							        	</div>
+							        </div>
+							        
+							        <div class="form-group">
+							        	<label for="tax" class="col-md-3" >Thuế (%):</label>
+							        	<div class="col-md-8">
+							        		<input type="number" class="form-control" min="0" step="any" value="0"  id="tax"/>
 							        	</div>
 							        </div>
 						      	</div>

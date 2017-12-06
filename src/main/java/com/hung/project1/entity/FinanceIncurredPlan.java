@@ -9,6 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -24,9 +28,18 @@ public class FinanceIncurredPlan implements Serializable{
 	@Id @GeneratedValue
 	@Column(name="id")
 	private Integer id;
+	
+	@NotEmpty(message="Tên chi mục không được để trống")
 	private String fee;
-	private Double cost;
-	private Double tax;
+	
+	@NotNull(message="Chi phí không được để trống")
+	@Min(value=0, message="Giá không được nhỏ hơn 0")
+	private double cost;
+
+	@NotNull(message="Thuế không được để trống")
+	@Min(value=0, message="Thuế không được nhỏ hơn 0")
+	private double tax;
+	
 	private String description;
 	
 	@JsonIgnoreProperties("financeIncurredPlanList")
@@ -89,8 +102,6 @@ public class FinanceIncurredPlan implements Serializable{
 	public void setConfirmed(boolean isConfirmed) {
 		this.isConfirmed = isConfirmed;
 	}
-
-	
 
 	public Double getTax() {
 		return tax;

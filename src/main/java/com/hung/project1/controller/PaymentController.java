@@ -41,7 +41,7 @@ public class PaymentController {
 	private PersonelIncurredPlanRepository personelIncurredPlanRepo;
 
 	@Autowired
-	private FinanceIncurredPlanRepository financeIncurredPlanRepo;
+	private FinanceIncurredPlanRepository incurredFinanceRepo;
 
 	@Autowired
 	private PaymentService paymentService;
@@ -52,25 +52,25 @@ public class PaymentController {
 
 		List<PersonelPlan> personelPlanList = personelPlanRepo.findByGeneralPlanId(generalPlan.getId());
 
-		List<FinancePlan> financePlanList = financePlanRepo.findByGeneralPlanId(generalPlan.getId());
+		List<FinancePlan> expectedFinances = financePlanRepo.findByGeneralPlanId(generalPlan.getId());
 
 		List<PersonelIncurredPlan> personelIncurredPlanList = personelIncurredPlanRepo
 				.findByGeneralPlanId(generalPlan.getId());
 
-		List<FinanceIncurredPlan> financeIncurredPlanList = financeIncurredPlanRepo
+		List<FinanceIncurredPlan> incurredFinances = incurredFinanceRepo
 				.findByGeneralPlanId(generalPlan.getId());
 
 		double totalFinance;
 		if (generalPlan.getStatus().equals("Đã hoàn thành")) {
 			totalFinance = generalPlan.getCost();
 		} else {
-			totalFinance = paymentService.calculateTotalFinance(financePlanList, financeIncurredPlanList);
+			totalFinance = paymentService.calculateTotalFinance(expectedFinances, incurredFinances);
 		}
 
 		map.addAttribute("plan", generalPlan);
 		map.addAttribute("personelPlan", personelPlanList);
-		map.addAttribute("financePlan", financePlanList);
-		map.addAttribute("financeIncurredPlans", financeIncurredPlanList);
+		map.addAttribute("financePlan", expectedFinances);
+		map.addAttribute("financeIncurredPlans", incurredFinances);
 		map.addAttribute("personelIncurredPlans", personelIncurredPlanList);
 		map.addAttribute("totalFinance", totalFinance);
 
@@ -79,6 +79,7 @@ public class PaymentController {
 		return "tax-declaration";
 	}
 
+	
 	@PostMapping("/payment/{planId}")
 	public @ResponseBody void doPayment(@PathVariable("planId") int planId, @RequestBody Integer[] removedPlans) {
 		// change status of plan
@@ -92,7 +93,7 @@ public class PaymentController {
 
 		// change status for finance plan
 		// set false for removed plans and true for accepted plans
-		List<FinanceIncurredPlan> financeIncurredPlans = financeIncurredPlanRepo
+		List<FinanceIncurredPlan> financeIncurredPlans = incurredFinanceRepo
 				.findByGeneralPlanId(generalPlan.getId());
 		financeIncurredPlans.forEach(plan -> {
 			if (removedPlansList.contains(plan.getId())) {
@@ -102,7 +103,7 @@ public class PaymentController {
 				acceptedPlansList.add(plan);
 			}
 
-			financeIncurredPlanRepo.save(plan);
+			incurredFinanceRepo.save(plan);
 		});
 
 		// create bill

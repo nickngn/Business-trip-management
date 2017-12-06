@@ -19,18 +19,20 @@ public class PaymentService {
 		return expectedCost + incurredCost;
 	}
 	
-	public double calculateIncurredCost(List<FinanceIncurredPlan> financeIncurredPlans) {
-		if (financeIncurredPlans.isEmpty() || financeIncurredPlans == null) {
+	public double calculateIncurredCost(List<FinanceIncurredPlan> plans) {
+		if (plans.isEmpty() || plans == null) {
 			return 0;
 		}
 		
-		double totalIncurredFinanceCost = 0;
-		for (int i = 0; i < financeIncurredPlans.size(); i++) {
-			totalIncurredFinanceCost += financeIncurredPlans.get(i).getCost()
-					* (1 + financeIncurredPlans.get(i).getTax() / 100);
+		double totalCost = 0;
+		for (int i = 0; i < plans.size(); i++) {
+			if (plans.get(i).isConfirmed()) {
+				totalCost += plans.get(i).getCost()
+						* (1 + plans.get(i).getTax() / 100);
+			}
 		}
 
-		return totalIncurredFinanceCost;
+		return totalCost;
 	}
 	
 	public double calculateExpectedCost(List<FinancePlan> financePlans) {
@@ -38,12 +40,12 @@ public class PaymentService {
 			return 0;
 		}
 		
-		double totalFinancePlanCost = 0;
+		double totalCost = 0;
 		for (int i = 0; i < financePlans.size(); i++) {
-			totalFinancePlanCost += financePlans.get(i).getCost() 
+			totalCost += financePlans.get(i).getCost() 
 					* (1 + financePlans.get(i).getTax() / 100);
 		}
 
-		return totalFinancePlanCost;
+		return totalCost;
 	}
 }

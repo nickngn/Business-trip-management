@@ -10,7 +10,7 @@
 	
 	<div class="col-md-4 col-md-offset-4" style="margin-top: 5%">
 		<form th:action="@{/login}" method="post">
-			<p th:if="${param.error}">Username or password is invalid!</p>
+			<p class="text-danger" th:if="${param.error}">Username or password is invalid!</p>
 			<table class="table table-bordered" style="text-align:center">
 				<tr>
 					<td colspan="2" style="font-size: 20px;">

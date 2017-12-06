@@ -22,6 +22,7 @@
 						<div class="form-group col-md-12">
 							<label for="" class="col-md-4">Tên chuyển công tác:</label>
 							<div class="col-md-8">
+								<p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
 								<input type="text" th:field="*{name}" class="form-control" placeholder="Ký hợp đồng với công ty ABC,..."/>
 							</div>
 						</div>
@@ -29,6 +30,7 @@
 						<div class="form-group col-md-12">
 							<label for="" class="col-md-4">Địa điểm:</label>
 							<div class="col-md-8">
+								<p class="text-danger" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></p>
 								<input type="text" th:field="*{location}" name="location" class="form-control" />
 							</div>
 						</div>
@@ -36,6 +38,7 @@
 						<div class="form-group col-md-12">
 							<label for="" class="col-md-4">Thời gian bắt đầu:</label>
 							<div class="col-md-6">
+								<p class="text-danger" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></p>
 								<input type="date" th:field="*{startDate}" class="form-control" />
 							</div>
 						</div>
@@ -43,6 +46,7 @@
 						<div class="form-group col-md-12">
 							<label for="" class="col-md-4">Thời gian kết thúc:</label>
 							<div class="col-md-6">
+								<p class="text-danger" th:if="${#fields.hasErrors('finishDate')}" th:errors="*{finishDate}"></p>
 								<input type="date" th:field="*{finishDate}" class="form-control" />
 							</div>
 						</div>
@@ -63,10 +67,14 @@
 						<tbody id="personel">
 							<tr th:each="personelPlan, stat: *{personelPlanList}">
 								<td class="personel-count" th:text="${stat.count}" list="user-suggest"></td>
-								<td><input type="text" list="user-suggest" th:field="*{personelPlanList[__${stat.index}__].user.username}" class="personel-input form-control" placeholder="Tên"/>
+								<td>
+									<input type="text" list="user-suggest" th:field="*{personelPlanList[__${stat.index}__].user.username}" class="personel-input form-control" placeholder="Tên"/>
 									
 								</td>
 								<td><button type="button" class="remove-personel btn btn-warning">Xóa</button></td>
+								<td class="no-border" th:if="${#fields.hasErrors('personelPlanList[__${stat.index}__].user.username')}">
+									<p class="text-danger" th:errors="*{personelPlanList[__${stat.index}__].user.username}"></p>
+								</td>
 							</tr>
 						</tbody>
 						<datalist id="user-suggest"></datalist>
@@ -84,6 +92,7 @@
 							<th>STT</th>
 							<th>Chi mục</th>
 							<th>Chi phí</th>
+							<th>Thuế (%)</th>
 							<th class="col-md-1"></th>
 						</thead>
 						<tbody id="finance">
@@ -91,7 +100,17 @@
 								<td class="finance-count" th:text="${iterStat.count}"></td>
 								<td><input type="text" th:field="*{financePlanList[__${iterStat.index}__].fee}" class="finance-input-fee form-control" placeholder="Chi mục"/></td>
 								<td><input type="number" th:field="*{financePlanList[__${iterStat.index}__].cost}" class="finance-input-cost form-control" placeholder="Chi phí"/></td>
+								<td><input type="number" th:field="*{financePlanList[__${iterStat.index}__].tax}" class="finance-input-tax form-control" placeholder="Thuế"/></td>
 								<td><button type="button" class="remove-finance btn btn-warning">Xóa</button></td>
+								<td class="no-border" th:if="${#fields.hasErrors('financePlanList[__${iterStat.index}__].fee')}">
+									<p class="text-danger"  th:errors="*{fee}"></p>
+								</td>
+								<td class="no-border" th:if="${#fields.hasErrors('financePlanList[__${iterStat.index}__].cost')}">
+									<p class="text-danger"  th:errors="*{cost}"></p>
+								</td>
+								<td class="no-border" th:if="${#fields.hasErrors('financePlanList')}">
+									<p class="text-danger"  th:errors="*{cost}"></p>
+								</td>
 							</tr>
 						</tbody>
 						

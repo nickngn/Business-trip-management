@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -45,12 +47,15 @@ public class NotificationController {
 	
 	@PutMapping("/notifications/add")
 	@ResponseBody
-	public void addNotification(@Valid @RequestBody Notification notification, BindingResult bindingResult) {
-		if (notification == null || bindingResult.hasErrors()) {
-			System.out.println("error " + bindingResult.getErrorCount());
-			return;
-		} else {
-			notificationRepo.save(notification);
-		}
+	public ResponseEntity<Object> addNotification(@Valid @RequestBody Notification notification, BindingResult bindingResult) {
+		
+		if (bindingResult.hasErrors()) {
+			return new ResponseEntity<>(bindingResult.getFieldErrors(),
+					HttpStatus.BAD_REQUEST);
+		} 
+		
+		notificationRepo.save(notification);
+		
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
