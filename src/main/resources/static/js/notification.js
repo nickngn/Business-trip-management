@@ -1,11 +1,12 @@
-$("#add-notification").on("click", function() {
+$("#form").on("submit", function() {
 	var notification = {
 		name: $("#name").val(),
 		personQuantity: $("#personQuantity").val(),
 		location: $("#location").val(),
 		startDate: $("#startDate").val(),
 		endDate: $("#endDate").val(),
-		description: $("#description").val()
+		description: $("#description").val(),
+		attachment: $("#file")[0].files[0].name
 	},
 	
 	csrf = $("meta[name='_csrf']").attr("content");

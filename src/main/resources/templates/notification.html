@@ -26,6 +26,7 @@
 						<div id="add" class="modal fade" role="dialog">
 						  <div class="modal-dialog">
 						
+						<form th:action="@{'/upload'}" id="form" method="post" enctype="multipart/form-data">
 						    <!-- Modal content-->
 						    <div class="modal-content">
 						      <div class="modal-header">
@@ -82,15 +83,23 @@
 							        		<textarea class="form-control"  id="description"></textarea>
 							        	</div>
 							        </div>
+							        
+							        <div class="form-group">
+							        	<label for="file" class="col-md-3" >File đính kèm:</label>
+							        	<div class="col-md-8">
+							        		<input class="form-control" name="file" type="file" id="file"></input>
+							        	</div>
+							        </div>
 						      	</div>
 						        
 						      </div>
 						      <div class="modal-footer">
-						      	<button type="button" id="add-notification" class="btn btn-primary">Thêm</button>
+						      	<button type="submit" id="add-notification" class="btn btn-primary">Thêm</button>
 						        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy bỏ</button>
 						      </div>
+						      
 						    </div>
-						
+						</form>
 						  </div>
 						</div>
 					</div>
@@ -118,6 +127,9 @@
 				    	</div>
 				    	<div class="col-md-6">
 				    		<h4>Ghi chú: <span th:text="${notification.description}"></span></h4>
+				    	</div>
+				    	<div class="col-md-6">
+				    		<h4>Đính kèm: <a th:href="${'/download/' + notification.attachment}" th:text="${notification.attachment}"></a></h4>
 				    	</div>
 				    </div>
 				 </div>

@@ -45,6 +45,8 @@ public class Notification implements Serializable {
 	private Date endDate;
 	
 	private String description;
+	
+	private String attachment;
 
 	public Notification() {
 		super();
@@ -105,6 +107,19 @@ public class Notification implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+
+	public String getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(String attachment) {
+		this.attachment = attachment;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override
