@@ -15,7 +15,7 @@ import com.hung.project1.storage.StorageService;
 
 @SpringBootApplication
 @EnableHypermediaSupport(type= {HypermediaType.HAL})
-public class Project12017Application {
+public class Project12018Application {
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -23,7 +23,7 @@ public class Project12017Application {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(Project12017Application.class, args);
+		SpringApplication.run(Project12018Application.class, args);
 	}
 	
     @Bean
