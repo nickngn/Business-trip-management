@@ -112,7 +112,7 @@
 	<!-- Proposes Table -->
 				<div class="col-md-8 col-md-offset-2" th:each="notification, stat : ${notificationPage.content}">
 				    <button class="btn btn-default btn-block collapsed"  data-toggle="collapse" th:attr="data-target='#noti' + ${stat.count}, aria-expanded='false'">
-				    	<h4><span th:text="${notification.name}"></span></h4>
+				    	<h4 style="text-align: left;"><span th:text="${notification.name}"></span></h4>
 				    </button>
 				    <div th:id="'noti' + ${stat.count}" class="collapse" aria-expanded="false">
 				    	<div class="col-md-6">

@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `project1_2017` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `project1_2017`;
+CREATE DATABASE  IF NOT EXISTS `business_trip_management` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `business_trip_management`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: project1_2017
+-- Host: 127.0.0.1    Database: business_trip_management
 -- ------------------------------------------------------
 -- Server version	5.5.5-10.1.32-MariaDB
 
