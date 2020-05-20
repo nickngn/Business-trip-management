@@ -7,11 +7,50 @@
 	<meta name="theme-color" content="#317EFB"/>
 	<base th:href="${basePath}"/>
 	<meta th:name="_csrf" th:content="${_csrf.token}"/>
+	<style>
+	.bg-image {
+		/* The image used */
+		background-image: url("img/flight-at-sunset.jpg");
+
+		/* Add the blur effect */
+		filter: blur(2px);
+		-webkit-filter: blur(8px);
+
+		/* Full height */
+		height: 90vh;
+
+		/* Center and scale the image nicely */
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+	.bg-text {
+		position: absolute;
+		top: 0%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		height: 80vh;
+		overflow: scroll;
+	}
+
+	body, html {
+		height: 100%;
+		margin: 0;
+		font-family: Arial, Helvetica, sans-serif;
+	}
+
+	* {
+		box-sizing: border-box;
+	}
+
+</style>
 </head>
 <body>
 	<div th:replace="layout :: header"></div>
-	
-	<div class="container" style="background-color: #f9f9f9; box-shadow:0px 0px 10px #dadada; margin-bottom:1%">
+	<div class="bg-image"></div>
+	<div class="bg-text container" style="border-radius: 5px; background-color: #f9f9f9; box-shadow:0px 0px 10px #dadada; margin-top: 25%;">
+
 		<div style="min-height: 100%">
 			<header class="page-header">
 				<h2 th:text="${title}"></h2>
@@ -21,7 +60,7 @@
 			
 				<div class="row" style="margin:1%" sec:authorize="hasRole('DIRECTOR')">
 					<div class="col-md-3 pull-right">
-						<button type="button" class="btn btn-lg btn-info" data-toggle="modal" data-target="#add"><span class="glyphicon glyphicon-plus"></span>
+						<button type="button" class="btn btn-lg btn-info" data-toggle="modal"  data-backdrop="" data-target="#add"><span class="glyphicon glyphicon-plus"></span>
 							Tạo thông báo</button>
 	
 						<!-- Modal -->
@@ -110,7 +149,7 @@
 				
 	
 	<!-- Proposes Table -->
-				<div class="col-md-8 col-md-offset-2" th:each="notification, stat : ${notificationPage.content}">
+				<div class="" th:each="notification, stat : ${notificationPage.content}">
 				    <button class="btn btn-default btn-block collapsed"  data-toggle="collapse" th:attr="data-target='#noti' + ${stat.count}, aria-expanded='false'">
 				    	<h4 style="text-align: left;"><span th:text="${notification.name}"></span></h4>
 				    </button>

@@ -1,64 +1,104 @@
 <html xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity4"
-		xmlns:th="http://thymeleaf.org">
+	xmlns:th="http://thymeleaf.org">
 <head>
-	<meta charset="UTF-8"/>
-	<title th:text="${plan.name}"></title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-	<meta th:if="${isLeader == true}" th:name="_csrf" th:content="${_csrf.token}"/>
-	<meta th:if="${isLeader == true}" th:name="_csrf_header" th:content="${_csrf.headerName}"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<meta name="theme-color" content="#317EFB"/>
+<meta charset="UTF-8" />
+<title th:text="${plan.name}"></title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<meta th:if="${isLeader == true}" th:name="_csrf"
+	th:content="${_csrf.token}" />
+<meta th:if="${isLeader == true}" th:name="_csrf_header"
+	th:content="${_csrf.headerName}" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#317EFB" />
+<style>
+.bg-image {
+	/* The image used */
+	background-image: url("/img/flight-at-sunset.jpg");
+	/* Add the blur effect */
+	filter: blur(2px);
+	-webkit-filter: blur(8px);
+	/* Full height */
+	height: 90vh;
+	/* Center and scale the image nicely */
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.bg-text {
+	position: absolute;
+	top: 0%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+body, html {
+	height: 100%;
+	margin: 0;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+	box-sizing: border-box;
+}
+</style>
 </head>
-<body  style="margin-bottom: 50px">
-	
+<body>
 	<div th:replace="layout :: header"></div>
-	
-	<div class="container" style="background-color: #f9f9f9; box-shadow:0px 0px 10px #dadada">
+	<div class="bg-image"></div>
+	<div class="bg-text container"
+		style="border-radius: 5px; background-color: #f9f9f9; box-shadow: 0px 0px 10px #dadada; margin-top: 25%; height: 80vh; overflow: auto">
 		<header class="page-header">
 			<h2 th:text="${plan.name}"></h2>
 			<h5 th:text="${plan.status}"></h5>
 			<div class="col-md-4 pull-right">
-				<a th:href="${'/payment/' + plan.id}"><strong>Tổng kết chi phí công tác</strong></a>
+				<a th:href="${'/payment/' + plan.id}"><strong>Tổng kết
+						chi phí công tác</strong></a>
 			</div>
 		</header>
 
 		<main>
 			<div class="col-md-12" style="margin-top: 40px">
-				<div th:object="${plan.leader}" class="col-md-6" >
-					<legend><strong>Nhân viên đề xuất</strong></legend>
-	
+				<div th:object="${plan.leader}" class="col-md-6">
+					<legend>
+						<strong>Nhân viên đề xuất</strong>
+					</legend>
+
 					<div class="form-group col-md-12">
 						<label for="" class="col-md-4">Họ tên:</label>
 						<div class="col-md-8">
 							<p th:text="*{username}"></p>
 						</div>
 					</div>
-	
+
 					<div class="form-group col-md-12">
 						<label for="" class="col-md-4">Chức vụ:</label>
 						<div class="col-md-8">
 							<p th:text="*{position}"></p>
 						</div>
 					</div>
-	
+
 					<div class="form-group col-md-12">
 						<label for="" class="col-md-4">Đơn vị:</label>
 						<div class="col-md-8">
 							<p th:text="*{workUnit}"></p>
 						</div>
 					</div>
-	
+
 					<div class="form-group col-md-12">
 						<label for="" class="col-md-4">Số điện thoại:</label>
 						<div class="col-md-8">
 							<p th:text="*{phone}"></p>
 						</div>
 					</div>
-	
+
 				</div>
-			
+
 				<div class="col-md-6" th:object="${plan}">
-					<legend><strong>Chi tiết chuyển công tác</strong></legend>
+					<legend>
+						<strong>Chi tiết chuyển công tác</strong>
+					</legend>
 					<div class="form-group col-md-12">
 						<label for="" class="col-md-4">Tên chuyển công tác:</label>
 						<div class="col-md-8">
@@ -82,245 +122,272 @@
 
 					<div class="form-group col-md-12">
 						<label for="" class="col-md-4">Thời gian kết thúc:</label>
-						<div><p th:text="*{finishDate}"></p>
+						<div>
+							<p th:text="*{finishDate}"></p>
 						</div>
 					</div>
 
 				</div>
 			</div>
-				
-				
-				<div class="col-md-10" style="margin-top: 40px">
-					<legend><strong>Các nhân viên đi cùng:</strong></legend>
-					<table class=" table table-stripped table-hover table-responsive table-bordered">
-						<thead>
-							<th>STT</th>
-							<th>Mã nhân viên</th>
-							<th>Tên</th>
-							<th>Chức vụ</th>
-							<th>Đơn vị</th>
-						</thead>
-						
-						<tbody>
-							<tr th:each="personel,iterStats : ${personelPlan}">
-								<td th:text="${iterStats.count}"></td>
-								<td th:text="${personel.user.username}"></td>
-								<td th:text="${personel.user.position}"></td>
-								<td th:text="${personel.user.workUnit}"></td>
-								<td th:text="${personel.user.phone}"></td>
-							</tr>
-						</tbody>
-					</table>
+
+
+			<div class="col-md-10" style="margin-top: 40px">
+				<legend>
+					<strong>Các nhân viên đi cùng:</strong>
+				</legend>
+				<table
+					class=" table table-stripped table-hover table-responsive table-bordered">
+					<thead>
+						<th>STT</th>
+						<th>Mã nhân viên</th>
+						<th>Tên</th>
+						<th>Chức vụ</th>
+						<th>Đơn vị</th>
+					</thead>
+
+					<tbody>
+						<tr th:each="personel,iterStats : ${personelPlan}">
+							<td th:text="${iterStats.count}"></td>
+							<td th:text="${personel.user.username}"></td>
+							<td th:text="${personel.user.position}"></td>
+							<td th:text="${personel.user.workUnit}"></td>
+							<td th:text="${personel.user.phone}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="col-md-10 " style="margin-top: 40px">
+				<legend>
+					<strong>Các khoản tạm ứng:</strong>
+				</legend>
+
+				<table
+					class=" table table-stripped table-hover table-responsive table-bordered">
+					<thead>
+						<th>STT</th>
+						<th>Chi mục</th>
+						<th>Chi phí</th>
+					</thead>
+					<tbody>
+						<tr th:each="finance, iterStats : ${financePlan}">
+							<td th:text="${iterStats.count}"></td>
+							<td th:text="${finance.fee}"></td>
+							<td th:text="${finance.cost}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="col-md-10" style="margin-top: 40px"
+				th:if="${plan.status == 'Đã đồng ý'}">
+				<legend>
+					<strong>Thay đổi nhân sự trong quá trình công tác:</strong>
+				</legend>
+				<table th:unless="${#lists.isEmpty(personelIncurredPlans)}"
+					class=" table table-stripped table-hover table-responsive table-bordered">
+					<thead>
+						<th>STT</th>
+						<th>Mã nhân viên</th>
+						<th>Thay đổi</th>
+						<th>Thời gian</th>
+						<th>Ghi chú</th>
+					</thead>
+
+					<tbody>
+						<tr th:each="personel,iterStats : ${personelIncurredPlans}">
+							<td th:text="${iterStats.count}"></td>
+							<td th:text="${personel.user.username}"></td>
+							<td th:text="${personel.action}"></td>
+							<td th:text="${personel.date}"></td>
+							<td th:text="${personel.description}"></td>
+						</tr>
+					</tbody>
+				</table>
+				<div th:if="${#lists.isEmpty(personelIncurredPlans)}">
+					<h4 class="text-center">Không có thay đổi nào</h4>
 				</div>
 
-				<div class="col-md-10 " style="margin-top: 40px">
-					<legend><strong>Các khoản tạm ứng:</strong></legend>
-					
-					<table class=" table table-stripped table-hover table-responsive table-bordered">
-						<thead>
-							<th>STT</th>
-							<th>Chi mục</th>
-							<th>Chi phí</th>
-						</thead>
-						<tbody>
-							<tr th:each="finance, iterStats : ${financePlan}">
-								<td th:text="${iterStats.count}"></td>
-								<td th:text="${finance.fee}"></td>
-								<td th:text="${finance.cost}"></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				
-				<div class="col-md-10" style="margin-top: 40px" th:if="${plan.status == 'Đã đồng ý'}">
-					<legend><strong>Thay đổi nhân sự trong quá trình công tác:</strong></legend>
-					<table th:unless="${#lists.isEmpty(personelIncurredPlans)}" class=" table table-stripped table-hover table-responsive table-bordered">
-						<thead>
-							<th>STT</th>
-							<th>Mã nhân viên</th>
-							<th>Thay đổi</th>
-							<th>Thời gian</th>
-							<th>Ghi chú</th>
-						</thead>
-						
-						<tbody>
-							<tr th:each="personel,iterStats : ${personelIncurredPlans}">
-								<td th:text="${iterStats.count}"></td>
-								<td th:text="${personel.user.username}"></td>
-								<td th:text="${personel.action}"></td>
-								<td th:text="${personel.date}"></td>
-								<td th:text="${personel.description}"></td>
-							</tr>
-						</tbody>
-					</table>
-					<div th:if="${#lists.isEmpty(personelIncurredPlans)}">
-						<h4  class="text-center">Không có thay đổi nào</h4>
-					</div>
-					
-<!-- 					Option for leader -->
-					<div th:if="${isLeader == true}">
-						<button type="button" class="btn btn-info" data-toggle="modal" data-target="#personel-change">Thêm thay đổi...</button>
-	
-						<!-- Modal -->
-						<div id="personel-change" class="modal fade" role="dialog">
-						  <div class="modal-dialog">
-						
-						    <!-- Modal content-->
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <button type="button" class="close" data-dismiss="modal">&times;</button>
-						        <h4 class="modal-title">Thay đổi nhân sự công tác</h4>
-						      </div>
-						      <div class="modal-body">
-						      	<div class="form-horizontal">
-						      	<div class="form-group">
-						      			<div class="col-md-8" id="errors-incurred-personel">
-							        		
-							        	</div>
-							        </div>
-						      		<div class="form-group">
-							        	<label for="username" class="col-md-3" >Nhân viên:</label>
-							        	<div class="col-md-8">
-							        		<input type="text" list="user-suggest-datalist" class="suggest-username form-control"  id="username"/>
-							        	</div>
-							        	<datalist id="user-suggest-datalist"></datalist>
-							        </div>
-							        
-							        <div class="form-group">
-							        	<label for="action" class="col-md-3" >Thay đổi:</label>
-							        	<div class="col-md-8">
-							        		<select class="form-control"  id="action">
-							        			<option value="Nghỉ">Nghỉ</option>
-							        			<option value="Gia nhập">Gia nhập</option>
-							        		</select>
-							        	</div>
-							        </div>
-							        
-							        <div class="form-group">
-							        	<label for="date" class="col-md-3" >Thời gian:</label>
-							        	<div class="col-md-8">
-							        		<input type="date" class="form-control"  id="date"/>
-							        	</div>
-							        </div>
-							        
-							        <div class="form-group">
-							        	<label for="description" class="col-md-3" >Ghi chú:</label>
-							        	<div class="col-md-8">
-							        		<textarea class="form-control"  id="description"></textarea>
-							        	</div>
-							        </div>
-						      	</div>
-						        
-						      </div>
-						      <div class="modal-footer">
-						      	<button type="button" id="add-personel-incurred-plan" class="btn btn-primary">Thêm</button>
-						        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy bỏ</button>
-						      </div>
-						    </div>
-						
-						  </div>
+				<!-- 					Option for leader -->
+				<div th:if="${isLeader == true}">
+					<button type="button" class="btn btn-info" data-toggle="modal"
+						data-target="#personel-change">Thêm thay đổi...</button>
+
+					<!-- Modal -->
+					<div id="personel-change" class="modal fade" role="dialog">
+						<div class="modal-dialog">
+
+							<!-- Modal content-->
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">Thay đổi nhân sự công tác</h4>
+								</div>
+								<div class="modal-body">
+									<div class="form-horizontal">
+										<div class="form-group">
+											<div class="col-md-8" id="errors-incurred-personel"></div>
+										</div>
+										<div class="form-group">
+											<label for="username" class="col-md-3">Nhân viên:</label>
+											<div class="col-md-8">
+												<input type="text" list="user-suggest-datalist"
+													class="suggest-username form-control" id="username" />
+											</div>
+											<datalist id="user-suggest-datalist"></datalist>
+										</div>
+
+										<div class="form-group">
+											<label for="action" class="col-md-3">Thay đổi:</label>
+											<div class="col-md-8">
+												<select class="form-control" id="action">
+													<option value="Nghỉ">Nghỉ</option>
+													<option value="Gia nhập">Gia nhập</option>
+												</select>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label for="date" class="col-md-3">Thời gian:</label>
+											<div class="col-md-8">
+												<input type="date" class="form-control" id="date" />
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label for="description" class="col-md-3">Ghi chú:</label>
+											<div class="col-md-8">
+												<textarea class="form-control" id="description"></textarea>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<div class="modal-footer">
+									<button type="button" id="add-personel-incurred-plan"
+										class="btn btn-primary">Thêm</button>
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal">Hủy bỏ</button>
+								</div>
+							</div>
+
 						</div>
 					</div>
-<!-- 					Option for leader -->
-					
+				</div>
+				<!-- 					Option for leader -->
+
+			</div>
+
+			<div class="col-md-10 " style="margin-top: 40px"
+				th:if="${(plan.status == 'Đã đồng ý')}">
+				<legend>
+					<strong>Các khoản phát sinh thêm trong quá trình công tác:</strong>
+				</legend>
+
+				<table th:unless="${#lists.isEmpty(financeIncurredPlans)}"
+					class=" table table-stripped table-hover table-responsive table-bordered">
+					<thead>
+						<th>STT</th>
+						<th>Chi mục</th>
+						<th>Chi phí</th>
+						<th>Thuế (%)</th>
+					</thead>
+					<tbody>
+						<tr th:each="finance, iterStats : ${financeIncurredPlans}">
+							<td th:text="${iterStats.count}"></td>
+							<td th:text="${finance.fee}"></td>
+							<td th:text="${finance.cost}"></td>
+							<td th:text="${finance.tax}"></td>
+						</tr>
+					</tbody>
+				</table>
+				<div th:if="${#lists.isEmpty(financeIncurredPlans)}">
+					<h4 class="text-center">Không có thay đổi nào</h4>
 				</div>
 
-				<div class="col-md-10 " style="margin-top: 40px" th:if="${(plan.status == 'Đã đồng ý')}">
-					<legend><strong>Các khoản phát sinh thêm trong quá trình công tác:</strong></legend>
-					
-					<table th:unless="${#lists.isEmpty(financeIncurredPlans)}" class=" table table-stripped table-hover table-responsive table-bordered">
-						<thead>
-							<th>STT</th>
-							<th>Chi mục</th>
-							<th>Chi phí</th>
-							<th>Thuế (%)</th>
-						</thead>
-						<tbody>
-							<tr th:each="finance, iterStats : ${financeIncurredPlans}">
-								<td th:text="${iterStats.count}"></td>
-								<td th:text="${finance.fee}"></td>
-								<td th:text="${finance.cost}"></td>
-								<td th:text="${finance.tax}"></td>
-							</tr>
-						</tbody>
-					</table>
-					<div th:if="${#lists.isEmpty(financeIncurredPlans)}">
-						<h4 class="text-center">Không có thay đổi nào</h4>
-					</div>
-					
-<!-- 					Option for leader -->
-					<div th:if="${isLeader == true}">
-						<button type="button" class="btn btn-info" data-toggle="modal" data-target="#finance-change">Thêm thay đổi...</button>
-	
-						<!-- Modal -->
-						<div id="finance-change" class="modal fade" role="dialog">
-						  <div class="modal-dialog">
-						
-						    <!-- Modal content-->
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <button type="button" class="close" data-dismiss="modal">&times;</button>
-						        <h4 class="modal-title">Báo cáo công tác phí</h4>
-						      </div>
-						      <div class="modal-body">
-						      	<div class="form-horizontal">
-						      		<input type="hidden" id="planId" th:value="${plan.id}"/>
-						      		
-						      		<div class="form-group">
-						      			<div class="col-md-8" id="errors-incurred-finance">
-							        		
-							        	</div>
-							        </div>
-							        
-						      		<div class="form-group">
-							        	<label for="fee" class="col-md-3" >Phí:</label>
-							        	<div class="col-md-8">
-							        		<input type="text" class="form-control"  id="fee"/>
-							        	</div>
-							        </div>
-							        
-							        <div class="form-group">
-							        	<label for="cost" class="col-md-3" >Số tiền(VND):</label>
-							        	<div class="col-md-8">
-							        		<input type="number" class="form-control" min="0" value="0" step="any"  id="cost"/>
-							        	</div>
-							        </div>
-							        
-							        <div class="form-group">
-							        	<label for="tax" class="col-md-3" >Thuế (%):</label>
-							        	<div class="col-md-8">
-							        		<input type="number" class="form-control" min="0" step="any" value="0"  id="tax"/>
-							        	</div>
-							        </div>
-						      	</div>
-						        
-						      </div>
-						      <div class="modal-footer">
-						      	<button type="button" id="add-finance-incurred-plan" class="btn btn-primary">Thêm</button>
-						        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy bỏ</button>
-						      </div>
-						    </div>
-						
-						  </div>
+				<!-- 					Option for leader -->
+				<div th:if="${isLeader == true}">
+					<button type="button" class="btn btn-info" data-toggle="modal"
+						data-target="#finance-change">Thêm thay đổi...</button>
+
+					<!-- Modal -->
+					<div id="finance-change" class="modal fade" role="dialog">
+						<div class="modal-dialog">
+
+							<!-- Modal content-->
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">Báo cáo công tác phí</h4>
+								</div>
+								<div class="modal-body">
+									<div class="form-horizontal">
+										<input type="hidden" id="planId" th:value="${plan.id}" />
+
+										<div class="form-group">
+											<div class="col-md-8" id="errors-incurred-finance"></div>
+										</div>
+
+										<div class="form-group">
+											<label for="fee" class="col-md-3">Phí:</label>
+											<div class="col-md-8">
+												<input type="text" class="form-control" id="fee" />
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label for="cost" class="col-md-3">Số tiền(VND):</label>
+											<div class="col-md-8">
+												<input type="number" class="form-control" min="0" value="0"
+													step="any" id="cost" />
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label for="tax" class="col-md-3">Thuế (%):</label>
+											<div class="col-md-8">
+												<input type="number" class="form-control" min="0" step="any"
+													value="0" id="tax" />
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<div class="modal-footer">
+									<button type="button" id="add-finance-incurred-plan"
+										class="btn btn-primary">Thêm</button>
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal">Hủy bỏ</button>
+								</div>
+							</div>
+
 						</div>
 					</div>
-<!-- 					Option for leader -->
-					</div>
-				
-				
-<!-- 				Option for director -->
-				<div class="col-md-4 col-md-offset-3" sec:authorize="hasRole('DIRECTOR')" th:if="${plan.status == 'Chưa duyệt'}">
-					<a th:href="@{'/proposes/' + ${plan.id} + '/accept'}" class="btn btn-success btn-lg">Xác nhận</a>
-					<a th:href="@{'/proposes/' + ${plan.id} + '/deny'}" class="btn btn-error btn-lg pull-right">Từ chối</a>
 				</div>
+				<!-- 					Option for leader -->
+			</div>
+
+
+			<!-- 				Option for director -->
+			<div class="col-md-4 col-md-offset-3"
+				sec:authorize="hasRole('DIRECTOR')"
+				th:if="${plan.status == 'Chưa duyệt'}">
+				<a th:href="@{'/proposes/' + ${plan.id} + '/accept'}"
+					class="btn btn-success btn-lg">Xác nhận</a> <a
+					th:href="@{'/proposes/' + ${plan.id} + '/deny'}"
+					class="btn btn-error btn-lg pull-right">Từ chối</a>
+			</div>
 			<!-- 				Option for director -->
 		</main>
 	</div>
-	
-	
+
+
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script type="text/javascript" th:if="${isLeader == true}" th:src="@{/js/suggest-user.js}"></script>
-	<script type="text/javascript" th:if="${isLeader == true}" th:src="@{/js/add-incurred.js}"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" th:if="${isLeader == true}"
+		th:src="@{/js/suggest-user.js}"></script>
+	<script type="text/javascript" th:if="${isLeader == true}"
+		th:src="@{/js/add-incurred.js}"></script>
 </body>
 </html>

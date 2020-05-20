@@ -6,11 +6,45 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<meta name="theme-color" content="#317EFB"/>
 	<base th:href="${basePath}"/>
+<style>
+.bg-image {
+	/* The image used */
+	background-image: url("/img/flight-at-sunset.jpg");
+	/* Add the blur effect */
+	filter: blur(2px);
+	-webkit-filter: blur(8px);
+	/* Full height */
+	height: 90vh;
+	/* Center and scale the image nicely */
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.bg-text {
+	position: absolute;
+	top: 0%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+body, html {
+	height: 100%;
+	margin: 0;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+	box-sizing: border-box;
+}
+</style>
 </head>
 <body>
 	<div th:replace="layout :: header"></div>
+	<div class="bg-image" ></div>
+	<div class="bg-text container"
+		style="border-radius: 5px; background-color: #f9f9f9; box-shadow: 0px 0px 10px #dadada; margin-top:25%; height: 80vh; overflow: auto">
 	
-	<div class="container" style="background-color: #f9f9f9; box-shadow:0px 0px 10px #dadada; margin-bottom:1%">
 		<div style="min-height: 100%">
 			<header class="page-header">
 				<h2 th:text="${title}"></h2>

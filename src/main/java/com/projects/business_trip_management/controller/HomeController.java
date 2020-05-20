@@ -9,10 +9,8 @@ public class HomeController {
 
 	@GetMapping(value = {"","/"})
 	public String viewHome() {
-		System.out.println("View home");
 		boolean isAuthenticated = SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
 		if (isAuthenticated) {
-			System.out.println("View home");
 			return "homepage";
 		}
 		return "redirect:/login";
