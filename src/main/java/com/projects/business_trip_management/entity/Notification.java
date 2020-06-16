@@ -50,7 +50,6 @@ public class Notification implements Serializable {
 
 	public Notification() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Integer getId() {

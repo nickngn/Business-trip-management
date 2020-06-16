@@ -84,7 +84,7 @@ public class ProposeController {
 	@GetMapping("/proposes/{id}/accept")
 	public String acceptPropose(@PathVariable int id) {
 		GeneralPlan generalPlan = planRepo.findById(id);
-		generalPlan.setStatus("Đã đồng ý");
+		generalPlan.setStatus("Confirmed");
 		planRepo.save(generalPlan);
 		
 		return "redirect:/proposes/" + id;
@@ -93,7 +93,7 @@ public class ProposeController {
 	@GetMapping("/proposes/{id}/deny")
 	public String denyPropose(@PathVariable int id) {
 		GeneralPlan generalPlan = planRepo.findById(id);
-		generalPlan.setStatus("Đã từ chối");
+		generalPlan.setStatus("Denied");
 		planRepo.save(generalPlan);
 		
 		return "redirect:/proposes/" + id;
@@ -136,7 +136,7 @@ public class ProposeController {
 		User loggedUser = userRepo.findByUsername(username);
 		
 		generalPlan.setLeader(loggedUser);
-		generalPlan.setStatus("Chưa duyệt");
+		generalPlan.setStatus("Unconfirmed");
 		planRepo.save(generalPlan);
 		
 		generalPlan.getPersonelPlanList().forEach(personelPlan -> {

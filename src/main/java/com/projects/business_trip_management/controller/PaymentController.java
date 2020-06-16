@@ -61,7 +61,7 @@ public class PaymentController {
 				.findByGeneralPlanId(generalPlan.getId());
 
 		double totalFinance;
-		if (generalPlan.getStatus().equals("Đã hoàn thành")) {
+		if (generalPlan.getStatus().equals("Finished")) {
 			totalFinance = generalPlan.getCost();
 		} else {
 			totalFinance = paymentService.calculateTotalFinance(expectedFinances, incurredFinances);
@@ -84,7 +84,7 @@ public class PaymentController {
 	public @ResponseBody void doPayment(@PathVariable("planId") int planId, @RequestBody Integer[] removedPlans) {
 		// change status of plan
 		GeneralPlan generalPlan = planRepo.findById(planId);
-		generalPlan.setStatus("Đã hoàn thành");
+		generalPlan.setStatus("Finished");
 
 		// convert array to list
 		List<Integer> removedPlansList = Arrays.asList(removedPlans);

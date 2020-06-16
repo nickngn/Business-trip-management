@@ -54,7 +54,6 @@ public class NotificationController {
 					HttpStatus.BAD_REQUEST);
 		} 
 		
-		
 		notificationRepo.save(notification);
 		
 		return new ResponseEntity<>(HttpStatus.OK);
