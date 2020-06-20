@@ -9,7 +9,7 @@ import org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.projects.business_trip_management.storage.StorageService;
+import com.projects.business_trip_management.service.storage.StorageService;
 
 
 

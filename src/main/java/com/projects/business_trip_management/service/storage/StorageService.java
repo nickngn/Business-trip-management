@@ -1,4 +1,4 @@
-package com.projects.business_trip_management.storage;
+package com.projects.business_trip_management.service.storage;
 
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.projects.business_trip_management.storage;
+package com.projects.business_trip_management.service.storage;
 
 public class StorageException extends RuntimeException {
 

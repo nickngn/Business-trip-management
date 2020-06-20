@@ -27,7 +27,7 @@
 
 	.bg-text {
 		position: absolute;
-		top: 0%;
+		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
 		height: 80vh;
@@ -48,148 +48,149 @@
 </head>
 <body>
 	<div th:replace="layout :: header"></div>
-	<div class="bg-image"></div>
-	<div class="bg-text container" style="border-radius: 5px; background-color: #f9f9f9; box-shadow:0px 0px 10px #dadada; margin-top: 25%;">
+    <div class="container-fluid">
+		<div class="bg-image"></div>
+		<div class="bg-text container" style="border-radius: 5px; background-color: #f9f9f9; box-shadow:0px 0px 10px #dadada; ;">
 
-		<div style="min-height: 100%">
-			<header class="page-header">
-				<h2 th:text="${title}"></h2>
-			</header>
-			
-			<main th:if="${notificationPage.size > 0}">	
-			
-				<div class="row" style="margin:1%" sec:authorize="hasRole('DIRECTOR')">
-					<div class="col-md-3 pull-right">
-						<button type="button" class="btn btn-lg btn-info" data-toggle="modal"  data-backdrop="" data-target="#add"><span class="glyphicon glyphicon-plus"></span>
-							Tạo thông báo</button>
-	
-						<!-- Modal -->
-						<div id="add" class="modal fade" role="dialog">
-						  <div class="modal-dialog">
+			<div style="min-height: 100%">
+				<header class="page-header">
+					<h2 th:text="${title}"></h2>
+				</header>
+				
+				<main th:if="${notificationPage.size > 0}">	
+				
+					<div class="row" style="margin:1%" sec:authorize="hasRole('DIRECTOR')">
+						<div class="col-md-3 pull-right">
+							<button type="button" class="btn btn-lg btn-info" data-toggle="modal"  data-backdrop="" data-target="#add"><span class="glyphicon glyphicon-plus"></span>
+								Tạo thông báo</button>
+		
+							<!-- Modal -->
+							<div id="add" class="modal fade" role="dialog">
+							<div class="modal-dialog">
+							
+							<form th:action="@{'/upload'}" id="form" method="post" enctype="multipart/form-data">
+								<!-- Modal content-->
+								<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">Tạo thông báo</h4>
+								</div>
+								<div class="modal-body">
+									<div class="form-horizontal">
+									
+										<div class="form-group">
+											<div class="col-md-8" id="errors">
+												
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label for="name" class="col-md-3" >Tên <span style="color: red">*</span></label>
+											<div class="col-md-8">
+												<input type="text" class="form-control"  id="name" required="required"/>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label for="personQuantity" class="col-md-3" >Số lượng người</label>
+											<div class="col-md-3">
+												<input type="number" class="form-control"  id="personQuantity"/>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label for="location" class="col-md-3" >Địa điểm</label>
+											<div class="col-md-8">
+												<input type="text" class="form-control"  id="location"/>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label for="startDate" class="col-md-3" >Thời gian bắt đầu</label>
+											<div class="col-md-4">
+												<input type="date" class="form-control"  id="startDate"/>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label for="endDate" class="col-md-3" >Thời gian kết thúc</label>
+											<div class="col-md-4">
+												<input type="date" class="form-control"  id="endDate"/>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label for="description" class="col-md-3" >Ghi chú</label>
+											<div class="col-md-8">
+												<textarea class="form-control"  id="description"></textarea>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label for="file" class="col-md-3" >File đính kèm</label>
+											<div class="col-md-8">
+												<input class="form-control" name="file" type="file" id="file"></input>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+								<div class="modal-footer">
+									<button type="submit" id="add-notification" class="btn btn-primary">Thêm</button>
+									<button type="button" class="btn btn-default" data-dismiss="modal">Hủy bỏ</button>
+								</div>
+								
+								</div>
+							</form>
+							</div>
+							</div>
+						</div>
 						
-						<form th:action="@{'/upload'}" id="form" method="post" enctype="multipart/form-data">
-						    <!-- Modal content-->
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <button type="button" class="close" data-dismiss="modal">&times;</button>
-						        <h4 class="modal-title">Tạo thông báo</h4>
-						      </div>
-						      <div class="modal-body">
-						      	<div class="form-horizontal">
-						      	
-						      		<div class="form-group">
-						      			<div class="col-md-8" id="errors">
-							        		
-							        	</div>
-							        </div>
-							        
-						      		<div class="form-group">
-							        	<label for="name" class="col-md-3" >Tên <span style="color: red">*</span></label>
-							        	<div class="col-md-8">
-							        		<input type="text" class="form-control"  id="name" required="required"/>
-							        	</div>
-							        </div>
-							        
-							        <div class="form-group">
-							        	<label for="personQuantity" class="col-md-3" >Số lượng người</label>
-							        	<div class="col-md-3">
-							        		<input type="number" class="form-control"  id="personQuantity"/>
-							        	</div>
-							        </div>
-							        
-							        <div class="form-group">
-							        	<label for="location" class="col-md-3" >Địa điểm</label>
-							        	<div class="col-md-8">
-							        		<input type="text" class="form-control"  id="location"/>
-							        	</div>
-							        </div>
-							        
-							        <div class="form-group">
-							        	<label for="startDate" class="col-md-3" >Thời gian bắt đầu</label>
-							        	<div class="col-md-4">
-							        		<input type="date" class="form-control"  id="startDate"/>
-							        	</div>
-							        </div>
-							        
-							        <div class="form-group">
-							        	<label for="endDate" class="col-md-3" >Thời gian kết thúc</label>
-							        	<div class="col-md-4">
-							        		<input type="date" class="form-control"  id="endDate"/>
-							        	</div>
-							        </div>
-							        
-							        <div class="form-group">
-							        	<label for="description" class="col-md-3" >Ghi chú</label>
-							        	<div class="col-md-8">
-							        		<textarea class="form-control"  id="description"></textarea>
-							        	</div>
-							        </div>
-							        
-							        <div class="form-group">
-							        	<label for="file" class="col-md-3" >File đính kèm</label>
-							        	<div class="col-md-8">
-							        		<input class="form-control" name="file" type="file" id="file"></input>
-							        	</div>
-							        </div>
-						      	</div>
-						        
-						      </div>
-						      <div class="modal-footer">
-						      	<button type="submit" id="add-notification" class="btn btn-primary">Thêm</button>
-						        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy bỏ</button>
-						      </div>
-						      
-						    </div>
-						</form>
-						  </div>
+					</div>
+					
+		
+		<!-- Proposes Table -->
+					<div class="" th:each="notification, stat : ${notificationPage.content}">
+						<button class="btn btn-default btn-block collapsed"  data-toggle="collapse" th:attr="data-target='#noti' + ${stat.count}, aria-expanded='false'">
+							<h4 style="text-align: left;"><span th:text="${notification.name}"></span></h4>
+						</button>
+						<div th:id="'noti' + ${stat.count}" class="collapse" aria-expanded="false">
+							<div class="col-md-6">
+								<h4>Số lượng: <span th:text="${notification.personQuantity}"></span></h4>
+							</div>
+							<div class="col-md-6">
+								<h4>Địa điểm: <span th:text="${notification.location}"></span></h4>
+							</div>
+							<div class="col-md-6">
+								<h4>Ngày bắt đầu: <span th:text="${notification.startDate}"></span></h4>
+							</div>
+							<div class="col-md-6">
+								<h4>Ngày kết thúc: <span th:text="${notification.endDate}"></span></h4>
+							</div>
+							<div class="col-md-6">
+								<h4>Ghi chú: <span th:text="${notification.description}"></span></h4>
+							</div>
+							<div class="col-md-6">
+								<h4>Đính kèm: <a th:href="${'/download/' + notification.attachment}" th:text="${notification.attachment}"></a></h4>
+							</div>
 						</div>
 					</div>
 					
-				</div>
+					<div class="col-md-5 pull-right">
+						<a th:if="${page gt 1}" th:href="@{'?page='} + ${page - 1}" th:utext="${(page - 1)}"></a>
+						<span>________</span>
+						<a th:if="${page lt notificationPage.totalPages}" th:href="@{${basePath} + '?page='} + ${page + 1}" th:text="${page + 1}"></a>
+					</div>
+				</main>
 				
-	
-	<!-- Proposes Table -->
-				<div class="" th:each="notification, stat : ${notificationPage.content}">
-				    <button class="btn btn-default btn-block collapsed"  data-toggle="collapse" th:attr="data-target='#noti' + ${stat.count}, aria-expanded='false'">
-				    	<h4 style="text-align: left;"><span th:text="${notification.name}"></span></h4>
-				    </button>
-				    <div th:id="'noti' + ${stat.count}" class="collapse" aria-expanded="false">
-				    	<div class="col-md-6">
-				    		<h4>Số lượng: <span th:text="${notification.personQuantity}"></span></h4>
-				    	</div>
-				    	<div class="col-md-6">
-				    		<h4>Địa điểm: <span th:text="${notification.location}"></span></h4>
-				    	</div>
-				    	<div class="col-md-6">
-				    		<h4>Ngày bắt đầu: <span th:text="${notification.startDate}"></span></h4>
-				    	</div>
-				    	<div class="col-md-6">
-				    		<h4>Ngày kết thúc: <span th:text="${notification.endDate}"></span></h4>
-				    	</div>
-				    	<div class="col-md-6">
-				    		<h4>Ghi chú: <span th:text="${notification.description}"></span></h4>
-				    	</div>
-				    	<div class="col-md-6">
-				    		<h4>Đính kèm: <a th:href="${'/download/' + notification.attachment}" th:text="${notification.attachment}"></a></h4>
-				    	</div>
-				    </div>
-				 </div>
 				
-				<div class="col-md-5 pull-right">
-					<a th:if="${page gt 1}" th:href="@{'?page='} + ${page - 1}" th:utext="${(page - 1)}"></a>
-					<span>________</span>
-					<a th:if="${page lt notificationPage.totalPages}" th:href="@{${basePath} + '?page='} + ${page + 1}" th:text="${page + 1}"></a>
-				</div>
-			</main>
-			
-			
-			<main th:if="${notificationPage.size == 0}" class="text-center">	
-				<p><h3>Không có đề xuất nào</h3></p>
-			</main>
-			<!-- 		End Proposes Table -->
+				<main th:if="${notificationPage.size == 0}" class="text-center">	
+					<p><h3>Không có đề xuất nào</h3></p>
+				</main>
+				<!-- 		End Proposes Table -->
+			</div>
 		</div>
 	</div>
-	
 	
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

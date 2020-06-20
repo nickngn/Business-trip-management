@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.projects.business_trip_management.storage.StorageFileNotFoundException;
-import com.projects.business_trip_management.storage.StorageService;
+import com.projects.business_trip_management.service.storage.StorageFileNotFoundException;
+import com.projects.business_trip_management.service.storage.StorageService;
 
 
 @Controller

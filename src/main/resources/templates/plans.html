@@ -23,7 +23,7 @@
 
 .bg-text {
 	position: absolute;
-	top: 0%;
+	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
@@ -41,64 +41,65 @@ body, html {
 </head>
 <body>
 	<div th:replace="layout :: header"></div>
-	<div class="bg-image" ></div>
-	<div class="bg-text container"
-		style="border-radius: 5px; background-color: #f9f9f9; box-shadow: 0px 0px 10px #dadada; margin-top:25%; height: 80vh; overflow: auto">
-	
-		<div style="min-height: 100%">
-			<header class="page-header">
-				<h2 th:text="${title}"></h2>
-			</header>
-			
-			<main th:if="${plans.size > 0}">	
-			
-	
-				<div class="row" style="margin:1%" th:unless="${removeCreate}">
-					<div class="col-md-3 pull-right">
-						<a th:href="@{${basePath} + '/add'}" class="btn btn-lg btn-info">
-							<span class="glyphicon glyphicon-plus"></span>
-							Tạo đề xuất
-						</a>
+    <div class="container-fluid">
+		<div class="bg-image" ></div>
+		<div class="bg-text container"
+			style="border-radius: 5px; background-color: #f9f9f9; box-shadow: 0px 0px 10px #dadada; height: 80vh; overflow: auto">
+		
+			<div style="min-height: 100%">
+				<header class="page-header">
+					<h2 th:text="${title}"></h2>
+				</header>
+				
+				<main th:if="${plans.size > 0}">	
+				
+		
+					<div class="row" style="margin:1%" th:unless="${removeCreate}">
+						<div class="col-md-3 pull-right">
+							<a th:href="@{${basePath} + '/add'}" class="btn btn-lg btn-info">
+								<span class="glyphicon glyphicon-plus"></span>
+								Tạo đề xuất
+							</a>
+						</div>
 					</div>
-				</div>
+					
+		
+		<!-- Proposes Table -->
+		
+					<table class=" table table-stripped table-hover table-responsive table-bordered">
+						<thead>
+							<th>STT</th>
+							<th>Chuyến công tác</th>
+							<th>Ngày bắt đầu</th>
+							<th>Ngày kết thúc</th>
+							<th>Trạng thái</th>		
+						</thead>
+						<tbody>	
+							<tr th:each="plan, no : ${plans.content}">	
+								<td th:text="${no.count + (page -1) * size}"></td>
+								<td><a th:href="${basePath} + '/' + ${plan.id}" th:text="${plan.name}"></a></td>
+								<td th:text="${plan.startDate}"></td>
+								<td th:text="${plan.finishDate}"></td>
+								<td th:text="${plan.status}"></td>
+							</tr>
+						</tbody>
+					</table>
+					
+					<div class="col-md-5 pull-right">
+						<a th:if="${page gt 1}" th:href="@{'?page='} + ${page - 1}" th:utext="${(page - 1)}"></a>
+						<span>________</span>
+						<a th:if="${page lt plans.totalPages}" th:href="@{${basePath} + '?page='} + ${page + 1}" th:text="${page + 1}"></a>
+					</div>
+				</main>
 				
-	
-	<!-- Proposes Table -->
-	
-				<table class=" table table-stripped table-hover table-responsive table-bordered">
-					<thead>
-						<th>STT</th>
-						<th>Chuyến công tác</th>
-						<th>Ngày bắt đầu</th>
-						<th>Ngày kết thúc</th>
-						<th>Trạng thái</th>		
-					</thead>
-					<tbody>	
-						<tr th:each="plan, no : ${plans.content}">	
-							<td th:text="${no.count + (page -1) * size}"></td>
-							<td><a th:href="${basePath} + '/' + ${plan.id}" th:text="${plan.name}"></a></td>
-							<td th:text="${plan.startDate}"></td>
-							<td th:text="${plan.finishDate}"></td>
-							<td th:text="${plan.status}"></td>
-						</tr>
-					</tbody>
-				</table>
 				
-				<div class="col-md-5 pull-right">
-					<a th:if="${page gt 1}" th:href="@{'?page='} + ${page - 1}" th:utext="${(page - 1)}"></a>
-					<span>________</span>
-					<a th:if="${page lt plans.totalPages}" th:href="@{${basePath} + '?page='} + ${page + 1}" th:text="${page + 1}"></a>
-				</div>
-			</main>
-			
-			
-			<main th:if="${plans.size == 0}" class="text-center">	
-				<p><h3>Không có đề xuất nào</h3></p>
-			</main>
-			<!-- 		End Proposes Table -->
+				<main th:if="${plans.size == 0}" class="text-center">	
+					<p><h3>Không có đề xuất nào</h3></p>
+				</main>
+				<!-- 		End Proposes Table -->
+			</div>
 		</div>
 	</div>
-	
 	
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

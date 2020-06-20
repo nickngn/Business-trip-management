@@ -23,7 +23,7 @@
 
 .bg-text {
 	position: absolute;
-	top: 0%;
+	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
@@ -41,159 +41,161 @@ body, html {
 </head>
 <body>
 	<div th:replace="layout :: header"></div>
-	<div class="bg-image" ></div>
-	<div class="bg-text container"
-		style="border-radius: 5px; background-color: #f9f9f9; box-shadow: 0px 0px 10px #dadada; margin-top:25%; height: 80vh; overflow: auto">
-		<header class="page-header">
-			<p>
-			<h2>Thêm đề xuất công tác</h2>
-			</p>
-		</header>
+	
+    <div class="container-fluid">
+		<div class="bg-image" ></div>
+		<div class="bg-text container"
+			style="border-radius: 5px; background-color: #f9f9f9; box-shadow: 0px 0px 10px #dadada; height: 80vh; overflow: auto">
+			<header class="page-header">
+				<p>
+				<h2>Thêm đề xuất công tác</h2>
+				</p>
+			</header>
 
-		<main>
-			<form th:action="@{/proposes/add}" method="post"
-				th:object="${generalPlan}">
-				<div class="col-md-12" style="margin-top: 40px">
-					<div class="col-md-6">
+			<main>
+				<form th:action="@{/proposes/add}" method="post"
+					th:object="${generalPlan}">
+					<div class="col-md-12" style="margin-top: 40px">
+						<div class="col-md-6">
 
-						<legend>
-							<strong>Chi tiết chuyển công tác</strong>
-						</legend>
-						<div class="form-group col-md-12">
-							<label for="" class="col-md-4">Tên chuyển công tác:</label>
-							<div class="col-md-8">
-								<p class="text-danger" th:if="${#fields.hasErrors('name')}"
-									th:errors="*{name}"></p>
-								<input type="text" th:field="*{name}" class="form-control"
-									placeholder="Ký hợp đồng với công ty ABC,..." />
+							<legend>
+								<strong>Chi tiết chuyển công tác</strong>
+							</legend>
+							<div class="form-group col-md-12">
+								<label for="" class="col-md-4">Tên chuyển công tác:</label>
+								<div class="col-md-8">
+									<p class="text-danger" th:if="${#fields.hasErrors('name')}"
+										th:errors="*{name}"></p>
+									<input type="text" th:field="*{name}" class="form-control"
+										placeholder="Ký hợp đồng với công ty ABC,..." />
+								</div>
 							</div>
-						</div>
 
-						<div class="form-group col-md-12">
-							<label for="" class="col-md-4">Địa điểm:</label>
-							<div class="col-md-8">
-								<p class="text-danger" th:if="${#fields.hasErrors('location')}"
-									th:errors="*{location}"></p>
-								<input type="text" th:field="*{location}" name="location"
-									class="form-control" />
+							<div class="form-group col-md-12">
+								<label for="" class="col-md-4">Địa điểm:</label>
+								<div class="col-md-8">
+									<p class="text-danger" th:if="${#fields.hasErrors('location')}"
+										th:errors="*{location}"></p>
+									<input type="text" th:field="*{location}" name="location"
+										class="form-control" />
+								</div>
 							</div>
-						</div>
 
-						<div class="form-group col-md-12">
-							<label for="" class="col-md-4">Thời gian bắt đầu:</label>
-							<div class="col-md-6">
-								<p class="text-danger" th:if="${#fields.hasErrors('startDate')}"
-									th:errors="*{startDate}"></p>
-								<input type="date" th:field="*{startDate}" class="form-control" />
+							<div class="form-group col-md-12">
+								<label for="" class="col-md-4">Thời gian bắt đầu:</label>
+								<div class="col-md-6">
+									<p class="text-danger" th:if="${#fields.hasErrors('startDate')}"
+										th:errors="*{startDate}"></p>
+									<input type="date" th:field="*{startDate}" class="form-control" />
+								</div>
 							</div>
-						</div>
 
-						<div class="form-group col-md-12">
-							<label for="" class="col-md-4">Thời gian kết thúc:</label>
-							<div class="col-md-6">
-								<p class="text-danger"
-									th:if="${#fields.hasErrors('finishDate')}"
-									th:errors="*{finishDate}"></p>
-								<input type="date" th:field="*{finishDate}" class="form-control" />
-							</div>
-						</div>
-
-					</div>
-				</div>
-
-
-				<div class="col-md-10" style="margin-top: 40px">
-					<legend>
-						<strong>Các nhân viên đi cùng:</strong>
-					</legend>
-					<table
-						class=" table table-stripped table-hover table-responsive table-bordered">
-						<thead>
-							<th>STT</th>
-							<th>Tên</th>
-							<th class="col-md-1"></th>
-						</thead>
-
-						<tbody id="personel">
-							<tr th:each="personelPlan, stat: *{personelPlanList}">
-								<td class="personel-count" th:text="${stat.count}"
-									list="user-suggest"></td>
-								<td><input type="text" list="user-suggest"
-									th:field="*{personelPlanList[__${stat.index}__].user.username}"
-									class="personel-input form-control" placeholder="Tên" /></td>
-								<td><button type="button"
-										class="remove-personel btn btn-warning">Xóa</button></td>
-								<td class="no-border"
-									th:if="${#fields.hasErrors('personelPlanList[__${stat.index}__].user.username')}">
+							<div class="form-group col-md-12">
+								<label for="" class="col-md-4">Thời gian kết thúc:</label>
+								<div class="col-md-6">
 									<p class="text-danger"
-										th:errors="*{personelPlanList[__${stat.index}__].user.username}"></p>
-								</td>
-							</tr>
-						</tbody>
-						<datalist id="user-suggest"></datalist>
-					</table>
-					<div style="margin-top: 20px">
-						<button type="button" id="personel-add" class="btn btn-info">Thêm</button>
+										th:if="${#fields.hasErrors('finishDate')}"
+										th:errors="*{finishDate}"></p>
+									<input type="date" th:field="*{finishDate}" class="form-control" />
+								</div>
+							</div>
+
+						</div>
 					</div>
-				</div>
 
-				<div class="col-md-10 " style="margin-top: 40px">
-					<legend>
-						<strong>Các khoản tạm ứng:</strong>
-					</legend>
 
-					<table
-						class=" table table-stripped table-hover table-responsive table-bordered">
-						<thead>
-							<th>STT</th>
-							<th>Chi mục</th>
-							<th>Chi phí</th>
-							<th>Thuế (%)</th>
-							<th class="col-md-1"></th>
-						</thead>
-						<tbody id="finance">
-							<tr th:each="financePlan, iterStat: *{financePlanList}">
-								<td class="finance-count" th:text="${iterStat.count}"></td>
-								<td><input type="text"
-									th:field="*{financePlanList[__${iterStat.index}__].fee}"
-									class="finance-input-fee form-control" placeholder="Chi mục" /></td>
-								<td><input type="number"
-									th:field="*{financePlanList[__${iterStat.index}__].cost}"
-									class="finance-input-cost form-control" placeholder="Chi phí" /></td>
-								<td><input type="number"
-									th:field="*{financePlanList[__${iterStat.index}__].tax}"
-									class="finance-input-tax form-control" placeholder="Thuế" /></td>
-								<td><button type="button"
-										class="remove-finance btn btn-warning">Xóa</button></td>
-								<td class="no-border"
-									th:if="${#fields.hasErrors('financePlanList[__${iterStat.index}__].fee')}">
-									<p class="text-danger" th:errors="*{fee}"></p>
-								</td>
-								<td class="no-border"
-									th:if="${#fields.hasErrors('financePlanList[__${iterStat.index}__].cost')}">
-									<p class="text-danger" th:errors="*{cost}"></p>
-								</td>
-								<td class="no-border"
-									th:if="${#fields.hasErrors('financePlanList')}">
-									<p class="text-danger" th:errors="*{cost}"></p>
-								</td>
-							</tr>
-						</tbody>
+					<div class="col-md-10" style="margin-top: 40px">
+						<legend>
+							<strong>Các nhân viên đi cùng:</strong>
+						</legend>
+						<table
+							class=" table table-stripped table-hover table-responsive table-bordered">
+							<thead>
+								<th>STT</th>
+								<th>Tên</th>
+								<th class="col-md-1"></th>
+							</thead>
 
-					</table>
-					<div style="margin-top: 20px">
-						<button type="button" id="finance-add" class="btn btn-info">Thêm</button>
+							<tbody id="personel">
+								<tr th:each="personelPlan, stat: *{personelPlanList}">
+									<td class="personel-count" th:text="${stat.count}"
+										list="user-suggest"></td>
+									<td><input type="text" list="user-suggest"
+										th:field="*{personelPlanList[__${stat.index}__].user.username}"
+										class="personel-input form-control" placeholder="Tên" /></td>
+									<td><button type="button"
+											class="remove-personel btn btn-warning">Xóa</button></td>
+									<td class="no-border"
+										th:if="${#fields.hasErrors('personelPlanList[__${stat.index}__].user.username')}">
+										<p class="text-danger"
+											th:errors="*{personelPlanList[__${stat.index}__].user.username}"></p>
+									</td>
+								</tr>
+							</tbody>
+							<datalist id="user-suggest"></datalist>
+						</table>
+						<div style="margin-top: 20px">
+							<button type="button" id="personel-add" class="btn btn-info">Thêm</button>
+						</div>
 					</div>
-				</div>
 
-				<div class="col-md-3 pull-right">
-					<button type="submit" class="btn btn-success btn-lg">Gửi
-						đề xuất</button>
-				</div>
-			</form>
-		</main>
+					<div class="col-md-10 " style="margin-top: 40px">
+						<legend>
+							<strong>Các khoản tạm ứng:</strong>
+						</legend>
+
+						<table
+							class=" table table-stripped table-hover table-responsive table-bordered">
+							<thead>
+								<th>STT</th>
+								<th>Chi mục</th>
+								<th>Chi phí</th>
+								<th>Thuế (%)</th>
+								<th class="col-md-1"></th>
+							</thead>
+							<tbody id="finance">
+								<tr th:each="financePlan, iterStat: *{financePlanList}">
+									<td class="finance-count" th:text="${iterStat.count}"></td>
+									<td><input type="text"
+										th:field="*{financePlanList[__${iterStat.index}__].fee}"
+										class="finance-input-fee form-control" placeholder="Chi mục" /></td>
+									<td><input type="number"
+										th:field="*{financePlanList[__${iterStat.index}__].cost}"
+										class="finance-input-cost form-control" placeholder="Chi phí" /></td>
+									<td><input type="number"
+										th:field="*{financePlanList[__${iterStat.index}__].tax}"
+										class="finance-input-tax form-control" placeholder="Thuế" /></td>
+									<td><button type="button"
+											class="remove-finance btn btn-warning">Xóa</button></td>
+									<td class="no-border"
+										th:if="${#fields.hasErrors('financePlanList[__${iterStat.index}__].fee')}">
+										<p class="text-danger" th:errors="*{fee}"></p>
+									</td>
+									<td class="no-border"
+										th:if="${#fields.hasErrors('financePlanList[__${iterStat.index}__].cost')}">
+										<p class="text-danger" th:errors="*{cost}"></p>
+									</td>
+									<td class="no-border"
+										th:if="${#fields.hasErrors('financePlanList')}">
+										<p class="text-danger" th:errors="*{cost}"></p>
+									</td>
+								</tr>
+							</tbody>
+
+						</table>
+						<div style="margin-top: 20px">
+							<button type="button" id="finance-add" class="btn btn-info">Thêm</button>
+						</div>
+					</div>
+
+					<div class="col-md-3 pull-right">
+						<button type="submit" class="btn btn-success btn-lg">Gửi
+							đề xuất</button>
+					</div>
+				</form>
+			</main>
+		</div>
 	</div>
-
 
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script
