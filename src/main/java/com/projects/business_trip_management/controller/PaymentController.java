@@ -97,9 +97,9 @@ public class PaymentController {
 				.findByGeneralPlanId(generalPlan.getId());
 		financeIncurredPlans.forEach(plan -> {
 			if (removedPlansList.contains(plan.getId())) {
-				plan.setConfirmed(false);
+				plan.setOn_Going(false);
 			} else {
-				plan.setConfirmed(true);
+				plan.setOn_Going(true);
 				acceptedPlansList.add(plan);
 			}
 

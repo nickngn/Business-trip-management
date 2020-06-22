@@ -25,7 +25,7 @@ public interface GeneralPlanRepository extends Repository<GeneralPlan, Integer>{
 	@Query(value="FROM GeneralPlan p WHERE p.status='Finished' OR p.status='Denied' ORDER BY p.startDate DESC")
 	Page<GeneralPlan> findConfirmedOrFinishedPlans(Pageable pageRequest);
 	
-	@Query(value="FROM GeneralPlan p WHERE p.status='Confirmed' ORDER BY p.startDate DESC")
+	@Query(value="FROM GeneralPlan p WHERE p.status='On_Going' ORDER BY p.startDate DESC")
 	Page<GeneralPlan> findAcceptedPlan(Pageable pageRequest);
 	
 	@Query(value="SELECT p FROM GeneralPlan p where p.leader.id= :leaderId")

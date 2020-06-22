@@ -1,0 +1,140 @@
+<html xmlns:th="http://thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title th:text="${'Trip :: ' + title}"></title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#317EFB" />
+    <base th:href="${basePath}" />
+    <style>
+      .bg-image {
+        /* The image used */
+        background-image: url("/img/flight-at-sunset.jpg");
+        /* Add the blur effect */
+        filter: blur(2px);
+        -webkit-filter: blur(8px);
+        /* Full height */
+        height: 90vh;
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      .bg-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      body,
+      html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <div th:replace="layout :: header"></div>
+    <div class="container-fluid">
+      <div class="bg-image"></div>
+      <div
+        class="bg-text container"
+        style="
+          border-radius: 5px;
+          background-color: #f9f9f9;
+          box-shadow: 0px 0px 10px #dadada;
+          height: 80vh;
+          overflow: auto;
+        "
+      >
+        <div style="min-height: 100%;">
+          <header class="page-header">
+            <h2 th:text="${title}"></h2>
+          </header>
+
+          <div style="margin: 20px; float: right;">
+            <button type="button" id="threshold-add" class="btn btn-info" data-toggle="modal"  data-backdrop="false" data-target="#add">
+				<span class="glyphicon glyphicon-plus"></span>
+              Thêm
+            </button>
+		  </div>
+		  <div id="add" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+			
+			<form th:action="@{'/thresholds'}" id="form" method="post" 
+				th:object="${threshold}"
+				enctype="multipart/form-data">
+				<!-- Modal content-->
+				<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Thêm hạn mức</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-horizontal">
+					
+						<div class="form-group">
+							<div class="col-md-8" id="errors">
+								
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="name" class="col-md-3" >Chi mục <span style="color: red">*</span></label>
+							<div class="col-md-8">
+								<input type="text" th:field="*{fee}" autocomplete="work" class="form-control"  id="name" required="required"/>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="amount" class="col-md-3" >Hạn mức <span style="color: red">*</span></label>
+							<div class="col-md-3">
+								<input type="number" th:field="*{amount}" class="form-control"  id="amount" required="required"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" id="add-notification" class="btn btn-primary">Thêm</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Hủy bỏ</button>
+				</div>
+				
+				</div>
+			</form>
+			</div>
+			</div>
+          <table
+            class="table table-stripped table-hover table-responsive table-bordered"
+          >
+            <thead>
+              <th>STT</th>
+              <th>Tên chi mục</th>
+              <th>Hạn mức</th>
+            </thead>
+            <tbody id="threshold">
+              <tr th:each="threshold, iterStat: ${thresholds}">
+                <td class="threshold-count" th:text="${iterStat.count}"></td>
+                <td th:text="${threshold.fee}"></td>
+                <td th:text="${threshold.amount}"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/threshold.js}"></script>
+  </body>
+</html>

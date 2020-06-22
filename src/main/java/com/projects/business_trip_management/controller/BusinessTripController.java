@@ -143,7 +143,7 @@ public class BusinessTripController {
 
 		// complete finance incurred plan
 		financeIncurredPlan.setPlan(generalPlan);
-		financeIncurredPlan.setConfirmed(false);
+		financeIncurredPlan.setOn_Going(false);
 		// save
 		financeIncurredPlanRepo.save(financeIncurredPlan);
 

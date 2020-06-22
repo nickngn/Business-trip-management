@@ -26,7 +26,7 @@ public class PaymentService {
 		
 		double totalCost = 0;
 		for (int i = 0; i < plans.size(); i++) {
-			if (plans.get(i).isConfirmed()) {
+			if (plans.get(i).isOn_Going()) {
 				totalCost += plans.get(i).getCost()
 						* (1 + plans.get(i).getTax() / 100);
 			}

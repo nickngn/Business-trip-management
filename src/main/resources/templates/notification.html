@@ -61,7 +61,7 @@
 				
 					<div class="row" style="margin:1%" sec:authorize="hasRole('DIRECTOR')">
 						<div class="col-md-3 pull-right">
-							<button type="button" class="btn btn-lg btn-info" data-toggle="modal"  data-backdrop="" data-target="#add"><span class="glyphicon glyphicon-plus"></span>
+							<button type="button" class="btn btn-lg btn-info" data-toggle="modal"  data-backdrop="false" data-target="#add"><span class="glyphicon glyphicon-plus"></span>
 								Tạo thông báo</button>
 		
 							<!-- Modal -->
@@ -87,7 +87,7 @@
 										<div class="form-group">
 											<label for="name" class="col-md-3" >Tên <span style="color: red">*</span></label>
 											<div class="col-md-8">
-												<input type="text" class="form-control"  id="name" required="required"/>
+												<input type="text" autocomplete="work" class="form-control"  id="name" required="required"/>
 											</div>
 										</div>
 										
@@ -101,7 +101,7 @@
 										<div class="form-group">
 											<label for="location" class="col-md-3" >Địa điểm</label>
 											<div class="col-md-8">
-												<input type="text" class="form-control"  id="location"/>
+												<input type="text" autocomplete="address-level1" class="form-control"  id="location"/>
 											</div>
 										</div>
 										

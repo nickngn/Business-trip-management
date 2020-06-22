@@ -14,7 +14,7 @@ public class PersonelIncurredPlanDTO {
 	
 	private String description;
 	
-	private boolean isConfirmed;
+	private boolean isOn_Going;
 	
 	
 
@@ -65,12 +65,12 @@ public class PersonelIncurredPlanDTO {
 		this.description = description;
 	}
 
-	public boolean isConfirmed() {
-		return isConfirmed;
+	public boolean isOn_Going() {
+		return isOn_Going;
 	}
 
-	public void setConfirmed(boolean isConfirmed) {
-		this.isConfirmed = isConfirmed;
+	public void setOn_Going(boolean isOn_Going) {
+		this.isOn_Going = isOn_Going;
 	}
 
 	@Override
@@ -86,8 +86,8 @@ public class PersonelIncurredPlanDTO {
 		builder.append(date);
 		builder.append(", description=");
 		builder.append(description);
-		builder.append(", isConfirmed=");
-		builder.append(isConfirmed);
+		builder.append(", isOn_Going=");
+		builder.append(isOn_Going);
 		builder.append("]");
 		return builder.toString();
 	}

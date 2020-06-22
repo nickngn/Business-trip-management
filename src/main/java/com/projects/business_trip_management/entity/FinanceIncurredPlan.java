@@ -47,8 +47,8 @@ public class FinanceIncurredPlan implements Serializable{
 	@JoinColumn(name="plan_id")
 	private GeneralPlan generalPlan;
 	
-	@Column(name="is_confirmed")
-	private boolean isConfirmed;
+	@Column(name="isConfirmed")
+	private boolean isOn_Going;
 	
 	public FinanceIncurredPlan() {
 		// TODO Auto-generated constructor stub
@@ -95,12 +95,12 @@ public class FinanceIncurredPlan implements Serializable{
 		this.generalPlan = generalPlan;
 	}
 
-	public boolean isConfirmed() {
-		return isConfirmed;
+	public boolean isOn_Going() {
+		return isOn_Going;
 	}
 
-	public void setConfirmed(boolean isConfirmed) {
-		this.isConfirmed = isConfirmed;
+	public void setOn_Going(boolean isOn_Going) {
+		this.isOn_Going = isOn_Going;
 	}
 
 	public Double getTax() {
@@ -118,7 +118,7 @@ public class FinanceIncurredPlan implements Serializable{
 	@Override
 	public String toString() {
 		return "FinanceIncurredPlan [id=" + id + ", fee=" + fee + ", cost=" + cost + ", description=" + description
-				+ ", plan=" + generalPlan + ", isConfirmed=" + isConfirmed + "]";
+				+ ", plan=" + generalPlan + ", isOn_Going=" + isOn_Going + "]";
 	}
 	
 	

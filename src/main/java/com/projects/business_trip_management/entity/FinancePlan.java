@@ -42,6 +42,8 @@ public class FinancePlan implements Serializable{
 	
 	private String description;
 	
+	private boolean isThreshold;
+	
 	@JsonIgnoreProperties("financePlanList")
 	@ManyToOne
 	@JoinColumn(name="plan_id")
@@ -50,7 +52,14 @@ public class FinancePlan implements Serializable{
 	public FinancePlan() {
 		super();
 	}
-	
+
+	public FinancePlan(String fee, double cost, boolean isThreshold) {
+		super();
+		this.fee = fee;
+		this.cost = cost;
+		this.isThreshold = isThreshold;
+	}
+
 
 	public Integer getId() {
 		return id;
@@ -111,6 +120,13 @@ public class FinancePlan implements Serializable{
 		this.generalPlan = generalPlan;
 	}
 
+	public boolean isThreshold() {
+		return isThreshold;
+	}
+
+	public void setThreshold(boolean isThreshold) {
+		this.isThreshold = isThreshold;
+	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;

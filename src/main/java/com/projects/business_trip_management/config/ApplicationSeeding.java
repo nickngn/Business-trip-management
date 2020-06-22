@@ -59,15 +59,45 @@ public class ApplicationSeeding implements ApplicationListener<ContextRefreshedE
 			roleRepo.save(role);
 		}
 		//seeding accounts
-		if (userRepo.findByUsername("admin1234") == null) {
+		if (userRepo.findByUsername("admin") == null) {
 			User user = new User();
-			user.setUsername("admin1234");
-			user.setPassword(passwordEncoder.encode("andyhung"));
+			user.setUsername("admin");
+			user.setPassword(passwordEncoder.encode("admin"));
 			user.setWorkUnit("IT");
+			user.setPosition("Admin");
 			user.setRole(roleRepo.findByName("ROLE_SYSTEM_MANAGEMENT"));
 			userRepo.save(user);
 		}
+
+		if (userRepo.findByUsername("director1") == null) {
+			User user = new User();
+			user.setUsername("director1");
+			user.setPassword(passwordEncoder.encode("director1"));
+			user.setWorkUnit("Director 1");
+			user.setPosition("Director");
+			user.setRole(roleRepo.findByName("ROLE_DIRECTOR"));
+			userRepo.save(user);
+		}
+
+		if (userRepo.findByUsername("employee1") == null) {
+			User user = new User();
+			user.setUsername("employee1");
+			user.setPassword(passwordEncoder.encode("employee1"));
+			user.setWorkUnit("employee 1");
+			user.setPosition("Employee");
+			user.setRole(roleRepo.findByName("ROLE_EMPLOYEE"));
+			userRepo.save(user);
+		}
 		
+		if (userRepo.findByUsername("acountant1") == null) {
+			User user = new User();
+			user.setUsername("acountant1");
+			user.setPassword(passwordEncoder.encode("acountant1"));
+			user.setWorkUnit("acountant 1");
+			user.setPosition("Accountant");
+			user.setRole(roleRepo.findByName("ROLE_ACCOUNTANT"));
+			userRepo.save(user);
+		}
 //		for(User user : userRepo.findAll()) {
 //			user.setPassword(passwordEncoder.encode(user.getUsername()));
 //			userRepo.save(user);
@@ -76,13 +106,13 @@ public class ApplicationSeeding implements ApplicationListener<ContextRefreshedE
 //		for(Plan plan : planRepo.findAll()) {
 //			double x = Math.random() *3;
 //			if (x < 0.3) {
-//				plan.setConfirmed(null);
+//				plan.setOn_Going(null);
 //				System.out.println("null");
 //			} else if (x < 2) {
-//				plan.setConfirmed(true);
+//				plan.setOn_Going(true);
 //				System.out.println("true");
 //			} else {
-//				plan.setConfirmed(false);
+//				plan.setOn_Going(false);
 //				System.out.println("false");
 //			}
 //			planRepo.save(plan);

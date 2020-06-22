@@ -90,7 +90,7 @@
                 <th>Đã đồng ý</th>
                 <th>Ghi chú</th>
                 <th
-                  th:if="${plan.status == 'Confimed'}"
+                  th:if="${plan.status == 'On_Going'}"
                   sec:authorize="hasRole('ACCOUNTANT')"
                 ></th>
               </thead>
@@ -110,13 +110,13 @@
                   ></td>
                   <td>
                     <span th:if="${plan.status=='Denied'}">Không</span>
-                    <span th:if="${plan.status=='Confimed'}">Có</span>
+                    <span th:if="${plan.status=='On_Going'}">Có</span>
                     <span th:if="${plan.status=='Finished'}">Có</span>
                     <span th:if="${plan.status=='Unconfirmed'}">Đang chờ</span>
                   </td>
                   <td th:text="${finance.description}"></td>
                   <td
-                    th:if="${plan.status == 'Confimed'}"
+                    th:if="${plan.status == 'On_Going'}"
                     sec:authorize="hasRole('ACCOUNTANT')"
                   ></td>
                 </tr>
@@ -145,7 +145,7 @@
                   </td>
                   <td th:text="${finance.description}"></td>
                   <td
-                    th:if="${plan.status == 'Confimed'}"
+                    th:if="${plan.status == 'On_Going'}"
                     sec:authorize="hasRole('ACCOUNTANT')"
                   >
                     <button type="button" class="remove btn btn-warning">
@@ -178,7 +178,7 @@
               </div>
               <button
                 sec:authorize="hasRole('ACCOUNTANT')"
-                th:if="${plan.status == 'Confimed'}"
+                th:if="${plan.status == 'On_Going'}"
                 id="submit"
                 class="btn btn-success btn-lg"
               >

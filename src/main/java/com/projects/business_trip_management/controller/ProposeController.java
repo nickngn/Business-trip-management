@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import com.projects.business_trip_management.repository.FinancePlanRepository;
 import com.projects.business_trip_management.repository.GeneralPlanRepository;
 import com.projects.business_trip_management.repository.PersonelPlanRepository;
+import com.projects.business_trip_management.repository.ThresholdRepository;
 import com.projects.business_trip_management.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.projects.business_trip_management.entity.FinancePlan;
 import com.projects.business_trip_management.entity.GeneralPlan;
 import com.projects.business_trip_management.entity.PersonelPlan;
+import com.projects.business_trip_management.entity.Threshold;
 import com.projects.business_trip_management.entity.User;
 
 @Controller
@@ -47,6 +49,9 @@ public class ProposeController {
 	
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private ThresholdRepository thresholdRepo;
 
 	@GetMapping("/proposes")
 	public String viewPlanProposes(
@@ -84,7 +89,7 @@ public class ProposeController {
 	@GetMapping("/proposes/{id}/accept")
 	public String acceptPropose(@PathVariable int id) {
 		GeneralPlan generalPlan = planRepo.findById(id);
-		generalPlan.setStatus("Confirmed");
+		generalPlan.setStatus("On_Going");
 		planRepo.save(generalPlan);
 		
 		return "redirect:/proposes/" + id;
@@ -104,11 +109,14 @@ public class ProposeController {
 		
 		int availableId = planRepo.findMaxId() + 1;
 		
+		List<Threshold> thresholds = this.thresholdRepo.findAll();
+		
 		List<PersonelPlan> personelPlans= new ArrayList<>() ;
 		PersonelPlan emptyPersonelPlan = new PersonelPlan();
 		personelPlans.add(emptyPersonelPlan);
 		
 		List<FinancePlan> financePlans = new ArrayList<>();
+		thresholds.forEach(th -> financePlans.add(new FinancePlan(th.getFee(), th.getAmount(), true)));
 		FinancePlan emptyFinancePlan = new FinancePlan();
 		financePlans.add(emptyFinancePlan);
 		
@@ -118,6 +126,7 @@ public class ProposeController {
 		generalPlan.setFinancePlanList(financePlans);
 		
 		model.addAttribute("generalPlan", generalPlan);
+		model.addAttribute("thresholds", this.thresholdRepo.findAll());
 		
 		return "add-propose";
 	}

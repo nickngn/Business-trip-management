@@ -8,7 +8,7 @@ public class FinanceIncurredPlanDTO {
 	
 	private int generalPlanId;
 	
-	private boolean isConfirmed;
+	private boolean isOn_Going;
 
 	public FinanceIncurredPlanDTO() {
 		super();
@@ -47,12 +47,12 @@ public class FinanceIncurredPlanDTO {
 		this.generalPlanId = generalPlanId;
 	}
 
-	public boolean isConfirmed() {
-		return isConfirmed;
+	public boolean isOn_Going() {
+		return isOn_Going;
 	}
 
-	public void setConfirmed(boolean isConfirmed) {
-		this.isConfirmed = isConfirmed;
+	public void setOn_Going(boolean isOn_Going) {
+		this.isOn_Going = isOn_Going;
 	}
 
 	@Override
@@ -66,8 +66,8 @@ public class FinanceIncurredPlanDTO {
 		builder.append(description);
 		builder.append(", generalPlanId=");
 		builder.append(generalPlanId);
-		builder.append(", isConfirmed=");
-		builder.append(isConfirmed);
+		builder.append(", isOn_Going=");
+		builder.append(isOn_Going);
 		builder.append("]");
 		return builder.toString();
 	}

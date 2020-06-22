@@ -47,7 +47,7 @@ public class FileUploadController {
                     "You successfully uploaded " + file.getOriginalFilename() + "!");
 
     	}
-        return "redirect:/";
+        return "redirect:/notifications";
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)

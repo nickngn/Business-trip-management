@@ -151,6 +151,7 @@ body, html {
 								<th>Chi mục</th>
 								<th>Chi phí</th>
 								<th>Thuế (%)</th>
+								<th>Hạn mức (nếu có)</th>
 								<th class="col-md-1"></th>
 							</thead>
 							<tbody id="finance">
@@ -165,6 +166,7 @@ body, html {
 									<td><input type="number"
 										th:field="*{financePlanList[__${iterStat.index}__].tax}"
 										class="finance-input-tax form-control" placeholder="Thuế" /></td>
+									<td><span  th:text="${financePlan.cost}"></span></td>
 									<td><button type="button"
 											class="remove-finance btn btn-warning">Xóa</button></td>
 									<td class="no-border"

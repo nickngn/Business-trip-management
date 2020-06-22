@@ -10,6 +10,7 @@ $("#form").on("submit", function() {
 	},
 	
 	csrf = $("meta[name='_csrf']").attr("content");
+	console.log(csrf);
 	$.ajax({
 		url: "/notifications/add",
 		method: "put",
@@ -19,6 +20,8 @@ $("#form").on("submit", function() {
 		},
 		data: JSON.stringify(notification),
 		success: function() {
+
+			console.log(csrf);
 			location.reload();
 		},
 		error: function(response){

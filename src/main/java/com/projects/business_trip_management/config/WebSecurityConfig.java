@@ -35,6 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		        .antMatchers("/business-trips/*").authenticated()
 		        .antMatchers("/notifications").authenticated()
 		        .antMatchers("/notifications/*").authenticated()
+		        .antMatchers("/thresholds").authenticated()
+		        .antMatchers("/thresholds/*").authenticated()
 		        .antMatchers("/payment/*").authenticated()
 		        .antMatchers("/payment/*").authenticated()
 		        .and()

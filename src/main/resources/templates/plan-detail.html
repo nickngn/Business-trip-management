@@ -203,7 +203,7 @@
           <div
             class="col-md-10"
             style="margin-top: 40px;"
-            th:if="${plan.status == 'Confimed'}"
+            th:if="${plan.status == 'On_Going'}"
           >
             <legend>
               <strong>Thay đổi nhân sự trong quá trình công tác:</strong>
@@ -241,13 +241,14 @@
                 class="btn btn-info"
                 data-toggle="modal"
                 data-target="#personel-change"
+				data-backdrop=""
               >
                 Thêm thay đổi...
               </button>
 
               <!-- Modal -->
               <div id="personel-change" class="modal fade" role="dialog">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered">
                   <!-- Modal content-->
                   <div class="modal-content">
                     <div class="modal-header">
@@ -335,7 +336,7 @@
           <div
             class="col-md-10"
             style="margin-top: 40px;"
-            th:if="${(plan.status == 'Confimed')}"
+            th:if="${(plan.status == 'On_Going')}"
           >
             <legend>
               <strong
@@ -372,7 +373,8 @@
                 type="button"
                 class="btn btn-info"
                 data-toggle="modal"
-                data-target="#finance-change"
+				data-target="#finance-change"
+				data-backdrop="false"
               >
                 Thêm thay đổi...
               </button>

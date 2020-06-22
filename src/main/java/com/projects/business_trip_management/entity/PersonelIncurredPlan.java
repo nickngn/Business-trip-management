@@ -52,8 +52,8 @@ public class PersonelIncurredPlan implements Serializable{
 	@NotEmpty(message="Ghi chú được để trống")
 	private String description;
 	
-	@Column(name="is_confirmed")
-	private boolean isConfirmed;
+	@Column(name="isConfirmed")
+	private boolean isOn_Going;
 	
 	public PersonelIncurredPlan() {
 		super();
@@ -108,17 +108,17 @@ public class PersonelIncurredPlan implements Serializable{
 	}
 
 	public boolean isConfirmed() {
-		return isConfirmed;
+		return isOn_Going;
 	}
 
-	public void setConfirmed(boolean isConfirmed) {
-		this.isConfirmed = isConfirmed;
+	public void setOn_Going(boolean isOn_Going) {
+		this.isOn_Going = isOn_Going;
 	}
 
 	@Override
 	public String toString() {
 		return "PersonelIncurredPlan [id=" + id + ", plan=" + generalPlan + ", user=" + user + ", action=" + action + ", date="
-				+ date + ", description=" + description + ", isConfirmed=" + isConfirmed + "]";
+				+ date + ", description=" + description + ", isOn_Going=" + isOn_Going + "]";
 	}
 
 	

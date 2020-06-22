@@ -14,6 +14,6 @@ public interface PersonelIncurredPlanRepository extends Repository<PersonelIncur
 	
 	void save(PersonelIncurredPlan personelIncurredPlan);
 
-	@Query("FROM PersonelIncurredPlan p WHERE p.user.id=:userId AND p.action='ATTEND' AND p.isConfirmed='true'")
+	@Query("FROM PersonelIncurredPlan p WHERE p.user.id=:userId AND p.action='ATTEND' AND p.isOn_Going='true'")
 	public List<PersonelIncurredPlan> findByAttendedUser(@Param("userId") int userId);
 }

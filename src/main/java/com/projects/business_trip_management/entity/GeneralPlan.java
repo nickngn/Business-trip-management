@@ -58,7 +58,8 @@ public class GeneralPlan implements Serializable{
     @ManyToOne
     @JoinColumn(name="leader_id")
     private User leader;
-    
+
+    @JoinColumn(name="status")
     private String status;
     
     @Column(name="total_cost")
