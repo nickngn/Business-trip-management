@@ -101,8 +101,8 @@ body, html {
 						</div>
 
 
-						<div class="col-md-2">
-							<a th:href="@{/thresholds}" sec:authorize="hasRole('DIRECTOR')"
+						<div class="col-md-2" sec:authorize="hasRole('DIRECTOR') || hasRole('ACCOUNTANT')">
+							<a th:href="@{/thresholds}" 
 								class="btn btn-default"> <img th:src="@{img/threshold.png}"
 								alt="propose" class="img img-round img-responsice"
 								style="max-height: 150px" />

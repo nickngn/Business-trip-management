@@ -140,8 +140,8 @@
                     class="finance"
                   ></td>
                   <td>
-                    <span th:if="${finance.confirmed}">Có</span>
-                    <span th:unless="${finance.confirmed}">Không</span>
+                    <span th:if="${finance.isOn_Going}">Có</span>
+                    <span th:unless="${finance.isOn_Going}">Không</span>
                   </td>
                   <td th:text="${finance.description}"></td>
                   <td

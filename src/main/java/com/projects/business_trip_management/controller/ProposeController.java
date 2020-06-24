@@ -117,8 +117,6 @@ public class ProposeController {
 		
 		List<FinancePlan> financePlans = new ArrayList<>();
 		thresholds.forEach(th -> financePlans.add(new FinancePlan(th.getFee(), th.getAmount(), true)));
-		FinancePlan emptyFinancePlan = new FinancePlan();
-		financePlans.add(emptyFinancePlan);
 		
 		GeneralPlan generalPlan = new GeneralPlan();
 		generalPlan.setId(availableId);

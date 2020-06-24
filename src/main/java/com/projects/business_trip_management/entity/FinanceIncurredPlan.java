@@ -48,7 +48,7 @@ public class FinanceIncurredPlan implements Serializable{
 	private GeneralPlan generalPlan;
 	
 	@Column(name="isConfirmed")
-	private boolean isOn_Going;
+	public boolean isOn_Going;
 	
 	public FinanceIncurredPlan() {
 		// TODO Auto-generated constructor stub
