@@ -10,10 +10,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -56,6 +59,14 @@ public class ThresholdController {
 			this.thresholdRepository.save(thresholds);
 		}
 		
+		return "redirect:/thresholds";
+	}
+	
+	@GetMapping("/thresholds/{id}/delete")
+	public String delete(@PathVariable("id") int id) {
+		logger.info(" - deleteThreshold() : " + 2);
+
+		this.thresholdRepository.delete(id);
 		return "redirect:/thresholds";
 	}
 }

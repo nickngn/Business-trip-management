@@ -57,3 +57,22 @@ $("#threshold-save").on("click", function() {
 		}
 	});
 });
+
+function deleteThreshold(id) {
+	$.ajax({
+		url: "/thresholds/"+id + "/delete",
+		method: "GET",
+		success: function() {
+			location.reload();
+		},
+		error: function(response){
+			console.log(response);
+			var responseJson = response.responseJSON;
+			var errors = "";
+			for(var i = 0; i < responseJson.length; i++) {
+				errors += "<p class='text-danger' >" + responseJson[i].defaultMessage + "</p>" ;
+			}
+			$("#errors").html(errors);
+		}
+	});
+}

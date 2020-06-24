@@ -80,7 +80,12 @@ body, html {
 								<td><a th:href="${basePath} + '/' + ${plan.id}" th:text="${plan.name}"></a></td>
 								<td th:text="${plan.startDate}"></td>
 								<td th:text="${plan.finishDate}"></td>
-								<td th:text="${plan.status}"></td>
+								<td>
+						          <h5 th:if="${plan.status == 'Unconfirmed'}">Đang chờ</h5>
+						          <h5 th:if="${plan.status == 'On_Going'}">Đang trong quá trình</h5>
+						          <h5 th:if="${plan.status == 'Denied'}">Bị từ chối</h5>
+						          <h5 th:if="${plan.status == 'Finished'}">Đã kết thúc</h5>
+								</td>
 							</tr>
 						</tbody>
 					</table>

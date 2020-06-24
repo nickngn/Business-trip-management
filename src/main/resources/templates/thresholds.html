@@ -120,12 +120,16 @@
               <th>STT</th>
               <th>Tên chi mục</th>
               <th>Hạn mức</th>
+              <th></th>
             </thead>
             <tbody id="threshold">
+            <form action="#" method="post">
+            </form>
               <tr th:each="threshold, iterStat: ${thresholds}">
                 <td class="threshold-count" th:text="${iterStat.count}"></td>
                 <td th:text="${threshold.fee}"></td>
                 <td th:text="${threshold.amount}"></td>
+                <td><button class="btn btn-warning" th:onclick="|deleteThreshold(${threshold.id})|">Xoá</button></td>
               </tr>
             </tbody>
           </table>
